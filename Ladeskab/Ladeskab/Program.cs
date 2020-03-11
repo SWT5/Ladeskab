@@ -11,7 +11,7 @@ namespace Ladeskab
         static void Main(string[] args)
         {
 
-            //hej med dig .....
+            
         }
     }
 }
