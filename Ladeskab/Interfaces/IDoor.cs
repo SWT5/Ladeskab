@@ -9,6 +9,7 @@ namespace Ladeskab.Interfaces
     public interface IDoor
     {
         bool DoorState { get; }
+        bool LockState { get; }
 
         event EventHandler DoorOpenEvent;
         event EventHandler DoorCloseEvent;

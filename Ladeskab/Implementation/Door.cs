@@ -10,7 +10,10 @@ namespace Ladeskab.Implementation
 {
     public class Door : IDoor
     {
+        // DoorState True = door is closed, false = door is open
         public bool DoorState { get; private set; } 
+        // LockState true = locked, false = unlocked
+        public bool LockState { get; private set; } 
 
         public event EventHandler DoorOpenEvent;
 
@@ -18,11 +21,13 @@ namespace Ladeskab.Implementation
 
         public void LockDoor()
         {
+            LockState = true;
             Console.WriteLine("Door: Locked");
         }
 
         public void UnlockDoor()
         {
+            LockState = false;
             Console.WriteLine("Door: unlocked");
         }
 
@@ -39,8 +44,8 @@ namespace Ladeskab.Implementation
         // simuleringer til at klade event DoorOpenEvent
         public void SimulateDoorOpens()
         {
-            Console.WriteLine("User Open door");
-            DoorState = true;
+            Console.WriteLine("User Opens door");
+            DoorState = false;
             OnDoorOpened();
         }
 
@@ -48,7 +53,7 @@ namespace Ladeskab.Implementation
         public void SimulateDoorCloses()
         {
             Console.WriteLine("User closes door");
-            DoorState = false;
+            DoorState = true;
             OnDoorClosed();
         }
 
