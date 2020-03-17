@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ladeskab.Interfaces;
 
+
 namespace Ladeskab.Implementation
 {
     public class Door : IDoor
