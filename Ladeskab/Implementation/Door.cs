@@ -19,6 +19,7 @@ namespace Ladeskab.Implementation
 
         public event EventHandler DoorCloseEvent;
 
+
         public void LockDoor()
         {
             LockState = true;
