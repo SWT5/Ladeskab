@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\ChargeControl.cs" />
+    <Compile Include="Interfaces\IChargeControl.cs" />
     <Compile Include="Interfaces\IUsbCharger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\StationControl.cs" />
