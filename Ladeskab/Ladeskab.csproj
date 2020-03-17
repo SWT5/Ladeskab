@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDisplay.cs" />
     <Compile Include="Interfaces\IUsbCharger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\StationControl.cs" />
+    <Compile Include="Simulator\DisplaySimulator.cs" />
     <Compile Include="Simulator\UsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
