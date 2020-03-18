@@ -3,35 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UsbSimulator;
 
 namespace Ladeskab.Implementation
 {
     public class ChargeControl : IChargeControl
     {
-        public event EventHandler<ChargeChangedEventArgs> ChargeChangedEvent;
-        private bool _oldCharge;
+        public double CurrentCharge { get; set; }
 
-        public bool IsConnected()
+        public ChargeControl(IUsbCharger Currentstate)
         {
-            throw new NotImplementedException();
+            Currentstate.CurrentValueEvent += HandleCurrentChangedEvent;
         }
 
-        public void StartCharge(bool ChargeChanged)
+
+        private void HandleCurrentChangedEvent(object sender, CurrentEventArgs e)
         {
-            if (ChargeChanged != _oldCharge)
-            {
-                OnChargeChanged(new ChargeChangedEventArgs{});
-            }
+            CurrentCharge = e.Current;
+        }
+        
+        public bool IsConnected()
+        {
+            IUsbCharger usbCharger = new UsbChargerSimulator();
+            return usbCharger.Connected;
+        }
+
+        public void StartCharge()
+        {
+            IUsbCharger usbCharger = new UsbChargerSimulator();
+            usbCharger.StartCharge();
         }
 
         public void StopCharge()
         {
-            throw new NotImplementedException();
-        }
-
-        protected virtual void OnChargeChanged(ChargeChangedEventArgs e)
-        {
-            ChargeChangedEvent?.Invoke(this,e);
+            IUsbCharger usbCharger= new UsbChargerSimulator();
+            usbCharger.StopCharge();
         }
     }
 }
