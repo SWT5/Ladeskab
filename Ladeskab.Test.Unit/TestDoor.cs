@@ -59,14 +59,37 @@ namespace Ladeskab.Test.Unit
 
 
         // interaction/ Behavior -based test
+
+        // vil teste at OpenDoorEvent bliver fired
         [Test]
-        public void simulateDoorOpens_DoorOpenEvent_isTriggered()
+        public void simulateDoorOpens_DoorOpenEvent_isFired()
         {
 
-            // hvordan tester man lige events og at det bliver fired? 
+            // hvordan tester man lige events og at det bliver fired? - er dette så rigtigt? 
+            uut_.DoorOpenEvent += (Object,e) => eventCalled = true;
+
             uut_.SimulateDoorOpens();
+
+            Assert.That(eventCalled,Is.EqualTo(true));
         }
 
+        [Test]
+        public void simlateDoorOpens_DoorOpenEvent_isNotFired()
+        {
+            uut_.DoorOpenEvent += (Object,e) => eventCalled = true;
+
+            uut_.SimulateDoorCloses();
+
+            Assert.That(eventCalled,Is.EqualTo(false));
+        }
+
+        [Test]
+        public void simulateDoorCloses_DoorClosesEvent_isFired()
+        {
+            uut_.DoorCloseEvent += (Object, e) => eventCalled = true;
+            uut_.SimulateDoorCloses();
+            Assert.That(eventCalled,Is.EqualTo(true));
+        }
 
     }
 }
