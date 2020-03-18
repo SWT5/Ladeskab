@@ -10,6 +10,7 @@ namespace Ladeskab.Interfaces
     {
         public string Id { get; set; } //Property to hold the event state 
     }
+
     public interface IRFIDReader
     {
         event EventHandler<RfidDetectedEventArgs> RfidDetectedEvent;

@@ -53,6 +53,10 @@
     <Compile Include="TestUsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LadeskabApp\LadeskabApp.csproj">
+      <Project>{5549c258-31e0-4eba-a15e-deceec9f8c27}</Project>
+      <Name>LadeskabApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ladeskab\Ladeskab.csproj">
       <Project>{1e4994f1-dfab-428a-98eb-2dd4aeeb5d25}</Project>
       <Name>Ladeskab</Name>
