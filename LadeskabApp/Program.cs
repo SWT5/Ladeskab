@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Implementation;
+using Ladeskab.Interfaces;
 
 namespace LadeskabApp
 {
@@ -11,6 +13,8 @@ namespace LadeskabApp
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
+            IDoor door = new Door(); //temporary
+            IRFIDReader reader = new RFIDReader();
 
             bool finish = false;
             do
@@ -27,19 +31,19 @@ namespace LadeskabApp
                         break;
 
                     case 'O':
-                        door.OnDoorOpen();
+                        door.UnlockDoor();
                         break;
 
                     case 'C':
-                        door.OnDoorClose();
+                        door.LockDoor();
                         break;
 
                     case 'R':
                         System.Console.WriteLine("Indtast RFID id: ");
                         string idString = System.Console.ReadLine();
 
-                        int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        string id = idString;
+                        reader.RegisterId(id);
                         break;
 
                     default:

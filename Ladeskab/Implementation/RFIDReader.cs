@@ -7,7 +7,7 @@ using Ladeskab.Interfaces;
 
 namespace Ladeskab.Implementation
 {
-    class RFIDReader : IRFIDReader
+    public class RFIDReader : IRFIDReader
     {
         private string _oldId;
         public event EventHandler<RfidDetectedEventArgs> RfidDetectedEvent;
@@ -21,6 +21,7 @@ namespace Ladeskab.Implementation
         protected virtual void RfidReceived(RfidDetectedEventArgs e)
         {
             RfidDetectedEvent?.Invoke(this,e);
+
         }
     }
 }
