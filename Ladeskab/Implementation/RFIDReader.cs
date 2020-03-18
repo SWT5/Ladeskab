@@ -21,7 +21,6 @@ namespace Ladeskab.Implementation
         protected virtual void RfidReceived(RfidDetectedEventArgs e)
         {
             RfidDetectedEvent?.Invoke(this,e);
-
         }
     }
 }
