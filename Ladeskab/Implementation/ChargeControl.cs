@@ -11,11 +11,17 @@ namespace Ladeskab.Implementation
     {
         public double CurrentCharge { get; set; }
 
+        private readonly IUsbCharger _usbCharger;
+
+        public ChargeControl()
+        {
+            _usbCharger = new UsbChargerSimulator();
+        }
+
         public ChargeControl(IUsbCharger Currentstate)
         {
             Currentstate.CurrentValueEvent += HandleCurrentChangedEvent;
         }
-
 
         private void HandleCurrentChangedEvent(object sender, CurrentEventArgs e)
         {
@@ -24,20 +30,17 @@ namespace Ladeskab.Implementation
         
         public bool IsConnected()
         {
-            IUsbCharger usbCharger = new UsbChargerSimulator();
-            return usbCharger.Connected;
+            return _usbCharger.Connected;
         }
 
         public void StartCharge()
         {
-            IUsbCharger usbCharger = new UsbChargerSimulator();
-            usbCharger.StartCharge();
+            _usbCharger.StartCharge();
         }
 
         public void StopCharge()
         {
-            IUsbCharger usbCharger= new UsbChargerSimulator();
-            usbCharger.StopCharge();
+            _usbCharger.StopCharge();
         }
     }
 }
