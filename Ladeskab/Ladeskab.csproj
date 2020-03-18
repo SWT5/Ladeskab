@@ -46,6 +46,8 @@
     <Compile Include="Interfaces\IChargeControl.cs" />
     <Compile Include="Interfaces\IDisplay.cs" />
     <Compile Include="Interfaces\IDoor.cs" />
+    <Compile Include="Implementation\RFIDReader.cs" />
+    <Compile Include="Interfaces\IRFIDReader.cs" />
     <Compile Include="Interfaces\IUsbCharger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\StationControl.cs" />
