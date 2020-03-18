@@ -13,14 +13,12 @@ namespace Ladeskab.Implementation
 
         private readonly IUsbCharger _usbCharger;
 
-        public ChargeControl()
-        {
-            _usbCharger = new UsbChargerSimulator();
-        }
 
-        public ChargeControl(IUsbCharger Currentstate)
+        public ChargeControl(IUsbCharger usbCharger)
         {
-            Currentstate.CurrentValueEvent += HandleCurrentChangedEvent;
+            _usbCharger = usbCharger;
+            _usbCharger.CurrentValueEvent += HandleCurrentChangedEvent;
+            
         }
 
         private void HandleCurrentChangedEvent(object sender, CurrentEventArgs e)
