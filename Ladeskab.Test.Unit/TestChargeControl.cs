@@ -58,6 +58,20 @@ namespace Ladeskab.Test.Unit
             usbCharger_.Connected.Equals(false);
         }
 
+        [Test]
+        public void IsConnectedBool()
+        {
+            uut_.IsConnected();
+            usbCharger_.Connected.Equals(true);
+        }
+
+        [Test]
+        public void IsNotConnectedBool()
+        {
+            uut_.StopCharge();
+            usbCharger_.Connected.Equals(false);
+        }
+
         /***    CurrentState test     ***/
         [Test]
         public void CurrentValue_Fivehundred()

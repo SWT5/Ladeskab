@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Interfaces;
+using Ladeskab.Simulator;
 using UsbSimulator;
 
 namespace Ladeskab.Implementation
@@ -11,6 +13,7 @@ namespace Ladeskab.Implementation
     {
         public double CurrentCharge { get; set; }
         private readonly IUsbCharger _usbCharger;
+        DisplaySimulator Display_ = new DisplaySimulator();
 
 
 
