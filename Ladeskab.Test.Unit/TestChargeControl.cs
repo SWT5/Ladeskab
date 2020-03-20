@@ -15,9 +15,10 @@ namespace Ladeskab.Test.Unit
         private ChargeControl uut_;
         public bool eventCalled { get; set; }
         private IUsbCharger usbCharger_;        //Substitute: Fake
+        private int eventcount { get; set; }
 
 
-        
+
         [SetUp]
         public void Setup()
         {
@@ -61,19 +62,26 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void CurrentValue_FiveHundred()
         {
-
+            uut_.StartCharge();
+            usbCharger_.CurrentValue.CompareTo(500);
         }
 
         [Test]
         public void CurrentValue_two_And_a_Half()
         {
-
+            uut_.StopCharge();
+            usbCharger_.CurrentValue.CompareTo(0.0);
         }
 
+        /***    eventcalled test     ***/
         [Test]
-        public void overloaded()
+        public void eventCalledonetime()
         {
-
+           uut_ = new ChargeControl(usbCharger_);
+           usbCharger_.CurrentValueEvent += (o, e) =>
+           {
+               eventcount++;
+           };
         }
     }
 }
