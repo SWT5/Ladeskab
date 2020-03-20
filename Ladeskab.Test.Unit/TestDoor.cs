@@ -54,7 +54,7 @@ namespace Ladeskab.Test.Unit
         public void simulateDoorCloses_doorIsClosed_doorState_equal_true()
         {
             uut_.SimulateDoorCloses();
-            Assert.That(uut_.DoorState,Is.EqualTo(false));
+            Assert.That(uut_.DoorState,Is.EqualTo(true));
         }
 
 
