@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Ladeskab.Implementation;
 using NSubstitute;
 using NUnit.Framework;
@@ -13,11 +14,11 @@ namespace Ladeskab.Test.Unit
     class TestChargeControl
     {
         private ChargeControl uut_;
-        public bool eventCalled { get; set; }
+        public int eventCount { get; set; }
         private IUsbCharger usbCharger_;        //Substitute: Fake
 
 
-        
+
         [SetUp]
         public void Setup()
         {
@@ -59,21 +60,28 @@ namespace Ladeskab.Test.Unit
 
         /***    CurrentState test     ***/
         [Test]
-        public void CurrentValue_FiveHundred()
+        public void CurrentValue_Fivehundred()
         {
-
+            uut_.StartCharge();
+            usbCharger_.CurrentValue.CompareTo(500);
         }
 
         [Test]
-        public void CurrentValue_two_And_a_Half()
+        public void CurrentValue_two_and_a_half()
         {
-
+            uut_.StopCharge();
+            usbCharger_.CurrentValue.CompareTo(0.0);
         }
+
+        /***Event called Test***/
 
         [Test]
-        public void overloaded()
+        public void eventCalledDoneTime()
         {
-
+            uut_=new ChargeControl(usbCharger_);
+            usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
         }
+
+
     }
 }
