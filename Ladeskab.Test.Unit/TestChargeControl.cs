@@ -123,8 +123,6 @@ namespace Ladeskab.Test.Unit
             usbCharger_.DidNotReceiveWithAnyArgs();
         }
 
-     
-
         /***    Display with charge control   ***/
         [Test]
         public void displayIsConnected()
