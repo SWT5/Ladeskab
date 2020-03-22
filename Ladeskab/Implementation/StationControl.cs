@@ -36,6 +36,22 @@ namespace Ladeskab
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
         }
 
+
+        //Our methods from UML
+        public bool DoorClosed()
+        {
+
+            return true;
+        }
+
+        public bool DoorOpen()
+        {
+
+            return true;
+        }
+
+
+
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(object sender, RfidDetectedEventArgs e)
         {
