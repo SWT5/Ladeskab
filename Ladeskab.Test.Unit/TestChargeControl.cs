@@ -31,6 +31,7 @@ namespace Ladeskab.Test.Unit
             display_ = Substitute.For<IDisplay>();
             uut_ = new ChargeControl(usbCharger_);
             displaySimulator = Substitute.For<DisplaySimulator>();
+
         }
 
         /***    charging test     ***/
@@ -97,9 +98,10 @@ namespace Ladeskab.Test.Unit
         /***    Event called Test   ***/
 
         [Test]
-        public void eventCalledDoneTime()
+        public void eventCalledOneTime()
         {
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
+           
         }
 
         [Test]
@@ -113,8 +115,6 @@ namespace Ladeskab.Test.Unit
         {
             usbCharger_.DidNotReceiveWithAnyArgs();
         }
-
-     
 
         /***    Display with charge control   ***/
         [Test]
