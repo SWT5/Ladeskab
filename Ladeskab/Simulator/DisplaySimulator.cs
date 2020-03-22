@@ -33,5 +33,10 @@ namespace Ladeskab.Simulator
         {
             Console.WriteLine("Fjern telefon");
         }
+
+        public void PhoneStartCharging()
+        {
+            Console.WriteLine("Telefonen oplader");
+        }
     }
 }
