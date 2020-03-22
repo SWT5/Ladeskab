@@ -19,6 +19,12 @@ namespace Ladeskab.Implementation
 
         public event EventHandler DoorCloseEvent;
 
+        public Door()
+        {
+            DoorState = true;   // door is closed
+            LockState = false;  // door is unlocked
+        }
+
 
         public void LockDoor()
         {
@@ -45,17 +51,29 @@ namespace Ladeskab.Implementation
         // simuleringer til at klade event DoorOpenEvent
         public void SimulateDoorOpens()
         {
-            Console.WriteLine("User Opens door");
-            DoorState = false; //Door is open 
-            OnDoorOpened();
+            if (!LockState && DoorState)    // door is unlocked and closed
+            {
+                Console.WriteLine("User Opens door");
+                DoorState = false; //Door is open 
+                OnDoorOpened();
+            }
+            else
+            {
+                Console.WriteLine("User cant open door, cause its locked");
+            }
         }
 
         // simulering til at kalde event DoorCloseEvent
         public void SimulateDoorCloses()
         {
-            Console.WriteLine("User closes door");
-            DoorState = true; //Door is closed 
-            OnDoorClosed();
+            if (!DoorState) // door is not already closed
+            {
+                Console.WriteLine("User closes door");
+                DoorState = true; //Door is closed 
+                OnDoorClosed();
+            }
+            else
+                Console.WriteLine("door is already closed");
         }
 
         

@@ -17,6 +17,7 @@ namespace Ladeskab.Test.Unit
     {
         private Door uut_;
         public bool eventCalled { get; set; }
+        public int eventCalledCount { get; set; }
         //private IDoor door_;
 
         [SetUp]
@@ -24,7 +25,8 @@ namespace Ladeskab.Test.Unit
         {
             //door_ = Substitute.For<IDoor>();
             uut_ = new Door();
-            
+            eventCalled = false;
+
         }
 
         // State-Based-Tests door
@@ -74,22 +76,40 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void simlateDoorOpens_DoorOpenEvent_isNotFired()
+        public void simulateDoorOpens_DoorLocked_DoorOpenEvent_isNotFired()
         {
             uut_.DoorOpenEvent += (Object,e) => eventCalled = true;
-
-            uut_.SimulateDoorCloses();
-
+            uut_.LockDoor();
+            uut_.SimulateDoorOpens();
             Assert.That(eventCalled,Is.EqualTo(false));
         }
 
         [Test]
+        public void simulateDoorOpens_DoorAlreadyOpened_DoorOpenEvent_isNotFiredTwice()
+        {
+            uut_.DoorOpenEvent += (Object, e) => eventCalledCount++;
+            uut_.SimulateDoorOpens();
+            uut_.SimulateDoorOpens();
+            Assert.That(eventCalledCount,Is.EqualTo(1));
+        }
+
+        // test that you can close door if door is open, and 
+        [Test]
         public void simulateDoorCloses_DoorClosesEvent_isFired()
         {
             uut_.DoorCloseEvent += (Object, e) => eventCalled = true;
+            uut_.SimulateDoorOpens();
             uut_.SimulateDoorCloses();
             Assert.That(eventCalled,Is.EqualTo(true));
         }
 
+        // test that you cant close door if its already closed 
+        [Test]
+        public void simulateDoorCloses_DoorAlreadyClosed_DoorCloseEvent_isNotFired()
+        {
+            uut_.DoorCloseEvent += (Object, e) => eventCalled = true; 
+            uut_.SimulateDoorCloses();
+            Assert.That(eventCalled, Is.EqualTo(false));
+        }
     }
 }

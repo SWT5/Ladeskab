@@ -21,22 +21,22 @@ namespace Ladeskab.Simulator
 
         public void ConnectionError()
         {
-            Console.WriteLine("Tilslutningfejl");
+            Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
         }
 
         public void WrongRfid()
         {
-            Console.WriteLine("RFID fejl");
+            Console.WriteLine("Forkert RFID tag");
         }
 
         public void DisconnectPhone()
         {
-            Console.WriteLine("Fjern telefon");
+            Console.WriteLine("Tag din telefon ud af skabet og luk døren");
         }
 
         public void PhoneStartCharging()
         {
-            Console.WriteLine("Telefonen oplader");
+            Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
         }
     }
 }

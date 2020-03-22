@@ -12,7 +12,7 @@ namespace Ladeskab.Implementation
     public class ChargeControl : IChargeControl
     {
         public double CurrentCharge { get; set; }
-        private readonly IUsbCharger _usbCharger;
+        private IUsbCharger _usbCharger;
         DisplaySimulator Display_ = new DisplaySimulator();
 
 
