@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Ladeskab.Implementation;
 using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 using UsbSimulator;
 
@@ -95,6 +96,15 @@ namespace Ladeskab.Test.Unit
             uut_=new ChargeControl(usbCharger_);
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
         }
+
+        [Test]
+        public void eventCalled1Time()
+        {
+            uut_ = new ChargeControl(usbCharger_);
+            usbCharger_.ReceivedWithAnyArgs(eventCount);
+        }
+
+
 
 
     }
