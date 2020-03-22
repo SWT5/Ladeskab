@@ -14,5 +14,6 @@ namespace Ladeskab.Interfaces
         void ConnectionError();
         void WrongRfid();
         void DisconnectPhone();
+        void PhoneStartCharging();
     }
 }
