@@ -21,6 +21,7 @@ namespace Ladeskab.Test.Unit
         private IUsbCharger usbCharger_;        //Substitute: Fake
         private IDisplay display_;
         private DisplaySimulator displaySimulator;
+        private CurrentEventArgs eventArgs = new CurrentEventArgs();
 
 
 
@@ -31,7 +32,6 @@ namespace Ladeskab.Test.Unit
             display_ = Substitute.For<IDisplay>();
             uut_ = new ChargeControl(usbCharger_);
             displaySimulator = Substitute.For<DisplaySimulator>();
-
         }
 
         /***    charging test     ***/
@@ -100,9 +100,17 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void eventCalledOneTime()
         {
-            usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
-           
+            uut_.StartCharge();
+            usbCharger_.CurrentValueEvent += (o, e) => { ++eventCount; };
+            Assert.That(eventCount, Is.EqualTo(1));
         }
+
+        //[Test]
+        //public void settingCurrentevent()
+        //{
+        //    eventArgs.Current = 1;
+        //    Assert.That(eventArgs.Current, Is.EqualTo(1));
+        //}
 
         [Test]
         public void eventCalled1Time()
@@ -115,6 +123,8 @@ namespace Ladeskab.Test.Unit
         {
             usbCharger_.DidNotReceiveWithAnyArgs();
         }
+
+     
 
         /***    Display with charge control   ***/
         [Test]
