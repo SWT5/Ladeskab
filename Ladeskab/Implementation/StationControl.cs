@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using Ladeskab.Implementation;
@@ -105,6 +107,15 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
+        private void DoorOpened(object sender)
+        {
+            _door.SimulateDoorOpens();      // her skal simulate door evt. have et andet navn i door klassen
+        }
+
+        private void DoorClosed(object sender)
+        {
+            _door.SimulateDoorCloses();
+        }
 
 
 
