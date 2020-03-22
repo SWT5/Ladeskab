@@ -103,6 +103,13 @@ namespace Ladeskab.Test.Unit
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
         }
 
+        [Test]
+        public void eventCalled1Time()
+        {
+            uut_ = new ChargeControl(usbCharger_);
+            usbCharger_.ReceivedWithAnyArgs(eventCount);
+        }
+
         /***    Display with charge control   ***/
         [Test]
         public void displayIsConnected()
@@ -124,6 +131,8 @@ namespace Ladeskab.Test.Unit
             uut_.StopCharge();
             displaySimulator.Received(1).DisconnectPhone();
         }
+
+
 
     }
 }
