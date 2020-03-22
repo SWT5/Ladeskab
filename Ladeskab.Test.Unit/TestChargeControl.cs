@@ -93,7 +93,7 @@ namespace Ladeskab.Test.Unit
         public void CurrentValue_two_and_a_half()
         {
             uut_2.StopCharge();
-            usbCharger_.CurrentValue.CompareTo(0.0);
+            _usbCharger.CurrentValue.CompareTo(0.0);
         }
 
         /***    Event called Test   ***/
