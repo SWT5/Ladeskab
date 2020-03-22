@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab;
 using Ladeskab.Implementation;
 using Ladeskab.Interfaces;
+using Ladeskab.Simulator;
+using UsbSimulator;
 
 namespace LadeskabApp
 {
@@ -15,6 +18,9 @@ namespace LadeskabApp
             // Assemble your system here from all the classes
             IDoor door = new Door(); //temporary
             IRFIDReader reader = new RFIDReader();
+            IUsbCharger usbCharger =new UsbChargerSimulator();
+            IChargeControl chargeControl =new ChargeControl(usbCharger);
+            string id = "";
 
             bool finish = false;
             do
@@ -31,18 +37,26 @@ namespace LadeskabApp
                         break;
 
                     case 'O':
-                        door.UnlockDoor();
+                        if (id=="")
+                        {
+                            door.UnlockDoor();
+                        }
+                        else if (id)
+                        {
+
+                        }
+                        chargeControl.StopCharge();
                         break;
 
                     case 'C':
                         door.LockDoor();
+                        chargeControl.StartCharge();
                         break;
 
                     case 'R':
                         System.Console.WriteLine("Indtast RFID id: ");
                         string idString = System.Console.ReadLine();
-
-                        string id = idString;
+                        id = idString;
                         reader.RegisterId(id);
                         break;
 
