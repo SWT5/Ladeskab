@@ -44,7 +44,8 @@ namespace Ladeskab
 
             //event connections 
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
-            
+            door.DoorOpenEvent += DoorOpened;
+            door.DoorCloseEvent += DoorClosed;
 
         }
 
@@ -104,15 +105,15 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
-        private void DoorOpened(object sender)
+        private void DoorOpened(object sender, EventArgs e)
         {
 
             //_door.SimulateDoorOpens();      // her skal simulate door evt. have et andet navn i door klassen
         }
 
-        private void DoorClosed(object sender)
+        private void DoorClosed(object sender, EventArgs e)
         {
-            _door.SimulateDoorCloses();
+           // _door.SimulateDoorCloses();
         }
 
 
