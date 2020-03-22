@@ -98,7 +98,7 @@ namespace Ladeskab.Test.Unit
         /***    Event called Test   ***/
 
         [Test]
-        public void eventCalledOneTime()
+        public void eventCalledValue()
         {
             uut_.StartCharge();
             usbCharger_.CurrentValueEvent += (o, e) => { ++eventCount; };
