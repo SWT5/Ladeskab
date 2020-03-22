@@ -109,12 +109,12 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
-        private void DoorOpened(object sender, EventArgs e)
+        public void DoorOpened(object sender, EventArgs e)
         {
             _display.ConnectPhone();
         }
 
-        private void DoorClosed(object sender, EventArgs e)
+        public void DoorClosed(object sender, EventArgs e)
         {
             _display.LoadRfid(); //
           

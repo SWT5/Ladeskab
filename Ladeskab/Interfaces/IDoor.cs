@@ -16,5 +16,8 @@ namespace Ladeskab.Interfaces
 
         void LockDoor();
         void UnlockDoor();
+
+        void SimulateDoorOpens();
+        void SimulateDoorCloses();
     }
 }
