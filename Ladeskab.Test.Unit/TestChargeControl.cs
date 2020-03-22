@@ -99,9 +99,22 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void eventCalledDoneTime()
         {
-            uut_ = new ChargeControl(usbCharger_);
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
         }
+
+        [Test]
+        public void eventCalled1Time()
+        {
+            usbCharger_.ReceivedWithAnyArgs(eventCount);
+        }
+
+        [Test]
+        public void EventNotReceived()
+        {
+            usbCharger_.DidNotReceiveWithAnyArgs();
+        }
+
+     
 
         /***    Display with charge control   ***/
         [Test]
