@@ -98,17 +98,19 @@ namespace Ladeskab.Test.Unit
         /***    Event called Test   ***/
 
         [Test]
-        public void eventCalledDoneTime()
+        public void eventCalledOneTime()
         {
+            uut_.StartCharge();
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
+            Assert.That(eventCount, Is.EqualTo(1));
         }
 
-        [Test]
-        public void settingCurrentevent()
-        {
-            eventArgs.Current = 1;
-            Assert.That(eventArgs.Current, Is.EqualTo(1));
-        }
+        //[Test]
+        //public void settingCurrentevent()
+        //{
+        //    eventArgs.Current = 1;
+        //    Assert.That(eventArgs.Current, Is.EqualTo(1));
+        //}
 
         [Test]
         public void eventCalled1Time()
