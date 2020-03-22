@@ -44,8 +44,8 @@ namespace Ladeskab
 
             //event connections 
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
-            door.DoorOpenEvent += DoorOpened;
-            door.DoorCloseEvent += DoorClosed;
+            door.DoorOpenEvent += DoorOpened; //Subscription to doorOpenEvent 
+            door.DoorCloseEvent += DoorClosed; //subscription to doorCloseEvent 
 
         }
 
@@ -113,7 +113,8 @@ namespace Ladeskab
 
         private void DoorClosed(object sender, EventArgs e)
         {
-           // _door.SimulateDoorCloses();
+            _display.LoadRfid(); //
+          
         }
 
 
