@@ -16,14 +16,17 @@ namespace Ladeskab.Test.Unit
 {
     class TestChargeControl
     {
+        public int eventCount { get; set; }
+
         private ChargeControl uut_;
         private ChargeControl uut_2;
-        public int eventCount { get; set; }
+        
         private IUsbCharger usbCharger_;        //Substitute: Fake
         private IDisplay display_;
-        private DisplaySimulator displaySimulator;
         private IUsbCharger _usbCharger = new UsbChargerSimulator();
-        
+
+        private DisplaySimulator displaySimulator;
+
 
         [SetUp]
         public void Setup()
@@ -104,13 +107,6 @@ namespace Ladeskab.Test.Unit
             uut_2.StartCharge();
             Assert.That(uut_2.CurrentCharge, Is.EqualTo(500.0));
         }
-
-        //[Test]
-        //public void settingCurrentevent()
-        //{
-        //    eventArgs.Current = 1;
-        //    Assert.That(eventArgs.Current, Is.EqualTo(1));
-        //}
 
         [Test]
         public void eventCalled1Time()
