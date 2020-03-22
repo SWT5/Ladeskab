@@ -101,9 +101,7 @@ namespace Ladeskab.Test.Unit
         public void eventCalledValue()
         {
             uut_.StartCharge();
-            Assert.That(uut_.CurrentCharge, Is.EqualTo(1));
-            //usbCharger_.CurrentValueEvent += (o, e) => { ++eventCount; };
-
+            Assert.That(uut_.CurrentCharge, Is.EqualTo(0.0));
         }
 
         //[Test]
