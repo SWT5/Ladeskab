@@ -24,32 +24,29 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IUsbCharger _charger;
-        private Door _door;
+        private readonly IUsbCharger _charger;
+        private readonly IDisplay _display;
+        private readonly IDoor _door;
+        private readonly IChargeControl _chargeControl;
+        private readonly IRFIDReader _rfidReader;
         private string _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IRFIDReader rfidreader)
+        public StationControl(IRFIDReader rfidreader, IDisplay display, IDoor door, IChargeControl chargeControl)
         {
+            //Objects being instantiated 
+            _display = display;
+            _door = door;
+            _chargeControl = chargeControl;
+            _rfidReader = rfidreader;
+
+            //event connections 
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
+            
+
         }
-
-
-        //Our methods from UML
-        public bool DoorClosed()
-        {
-
-            return true;
-        }
-
-        public bool DoorOpen()
-        {
-
-            return true;
-        }
-
 
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -109,7 +106,8 @@ namespace Ladeskab
         // Her mangler de andre trigger handlere
         private void DoorOpened(object sender)
         {
-            _door.SimulateDoorOpens();      // her skal simulate door evt. have et andet navn i door klassen
+
+            //_door.SimulateDoorOpens();      // her skal simulate door evt. have et andet navn i door klassen
         }
 
         private void DoorClosed(object sender)
