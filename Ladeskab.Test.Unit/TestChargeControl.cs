@@ -92,8 +92,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void CurrentValue_two_and_a_half()
         {
-            uut_2.StopCharge();
-            _usbCharger.CurrentValue.CompareTo(0.0);
+            uut_.StopCharge();
+            usbCharger_.CurrentValue.CompareTo(0.0);
         }
 
         /***    Event called Test   ***/
@@ -101,8 +101,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void eventCalledValue()
         {
-            uut_.StartCharge();
-            Assert.That(uut_.CurrentCharge, Is.EqualTo(500.0));
+            uut_2.StartCharge();
+            Assert.That(uut_2.CurrentCharge, Is.EqualTo(500.0));
         }
 
         //[Test]
