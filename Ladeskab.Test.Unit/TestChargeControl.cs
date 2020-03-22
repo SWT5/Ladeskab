@@ -21,6 +21,7 @@ namespace Ladeskab.Test.Unit
         private IUsbCharger usbCharger_;        //Substitute: Fake
         private IDisplay display_;
         private DisplaySimulator displaySimulator;
+        private CurrentEventArgs eventArgs = new CurrentEventArgs();
 
 
 
@@ -100,6 +101,13 @@ namespace Ladeskab.Test.Unit
         public void eventCalledDoneTime()
         {
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
+        }
+
+        [Test]
+        public void settingCurrentevent()
+        {
+            eventArgs.Current = 1;
+            Assert.That(eventArgs.Current, Is.EqualTo(1));
         }
 
         [Test]
