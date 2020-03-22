@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Ladeskab.Implementation;
+using Ladeskab.Interfaces;
+using Ladeskab.Simulator;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
@@ -17,6 +19,8 @@ namespace Ladeskab.Test.Unit
         private ChargeControl uut_;
         public int eventCount { get; set; }
         private IUsbCharger usbCharger_;        //Substitute: Fake
+        private IDisplay display_;
+        private DisplaySimulator displaySimulator;
 
 
 
@@ -24,7 +28,9 @@ namespace Ladeskab.Test.Unit
         public void Setup()
         {
             usbCharger_ = Substitute.For<IUsbCharger>();
+            display_ = Substitute.For<IDisplay>();
             uut_ = new ChargeControl(usbCharger_);
+            displaySimulator = Substitute.For<DisplaySimulator>();
         }
 
         /***    charging test     ***/
@@ -88,24 +94,36 @@ namespace Ladeskab.Test.Unit
             usbCharger_.CurrentValue.CompareTo(0.0);
         }
 
-        /***Event called Test***/
+        /***    Event called Test   ***/
 
         [Test]
         public void eventCalledDoneTime()
         {
-            uut_=new ChargeControl(usbCharger_);
+            uut_ = new ChargeControl(usbCharger_);
             usbCharger_.CurrentValueEvent += (o, e) => { eventCount++; };
         }
 
+        /***    Display with charge control   ***/
         [Test]
-        public void eventCalled1Time()
+        public void displayIsConnected()
         {
-            uut_ = new ChargeControl(usbCharger_);
-            usbCharger_.ReceivedWithAnyArgs(eventCount);
+            uut_.IsConnected();
+            displaySimulator.Received(1).ConnectPhone();
         }
 
+        [Test]
+        public void displayPhoneStartCharging()
+        {
+            uut_.StartCharge();
+            displaySimulator.Received(1).PhoneStartCharging();
+        }
 
-
+        [Test]
+        public void displayStopCharging()
+        {
+            uut_.StopCharge();
+            displaySimulator.Received(1).DisconnectPhone();
+        }
 
     }
 }
