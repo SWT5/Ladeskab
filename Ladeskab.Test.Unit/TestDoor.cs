@@ -25,7 +25,8 @@ namespace Ladeskab.Test.Unit
         {
             //door_ = Substitute.For<IDoor>();
             uut_ = new Door();
-            
+            eventCalled = false;
+
         }
 
         // State-Based-Tests door
