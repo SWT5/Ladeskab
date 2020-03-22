@@ -104,7 +104,12 @@ namespace Ladeskab.Test.Unit
             usbCharger_.ReceivedWithAnyArgs(eventCount);
         }
 
-
+        [Test]
+        public void EventNotReceived()
+        {
+            uut_ = new ChargeControl(usbCharger_);
+            usbCharger_.DidNotReceiveWithAnyArgs();
+        }
 
 
     }
