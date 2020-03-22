@@ -46,7 +46,7 @@ namespace Ladeskab.Implementation
         public void SimulateDoorOpens()
         {
             Console.WriteLine("User Opens door");
-            DoorState = false;
+            DoorState = false; //Door is open 
             OnDoorOpened();
         }
 
@@ -54,7 +54,7 @@ namespace Ladeskab.Implementation
         public void SimulateDoorCloses()
         {
             Console.WriteLine("User closes door");
-            DoorState = true;
+            DoorState = true; //Door is closed 
             OnDoorClosed();
         }
 
