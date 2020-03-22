@@ -100,8 +100,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void eventCalledOneTime()
         {
-            uut_.StartCharge();
             usbCharger_.CurrentValueEvent += (o, e) => { ++eventCount; };
+            uut_.StartCharge();
             Assert.That(eventCount, Is.EqualTo(1));
         }
 
@@ -115,16 +115,16 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void eventCalled1Time()
         {
+            uut_.StopCharge();
             usbCharger_.ReceivedWithAnyArgs(eventCount);
         }
 
         [Test]
         public void EventNotReceived()
-        {
+        { 
+            uut_.StartCharge();
             usbCharger_.DidNotReceiveWithAnyArgs();
         }
-
-     
 
         /***    Display with charge control   ***/
         [Test]
