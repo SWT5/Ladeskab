@@ -17,7 +17,7 @@ namespace Ladeskab.Test.Unit
     class TestChargeControl
     {
         private ChargeControl uut_;
-        public int eventCount { get;}
+        public int eventCount { get; set; }
         private IUsbCharger usbCharger_;        //Substitute: Fake
         private IDisplay display_;
         private DisplaySimulator displaySimulator;
