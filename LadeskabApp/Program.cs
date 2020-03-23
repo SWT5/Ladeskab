@@ -36,17 +36,17 @@ namespace LadeskabApp
                         finish = true;
                         break;
 
-                    case 'O':
-                        if (id=="")
-                        {
-                            door.UnlockDoor();
-                        }
-                        else if (id)
-                        {
+                    //case 'O':
+                    //    if (id=="")
+                    //    {
+                    //        door.UnlockDoor();
+                    //    }
+                    //    else if (id)
+                    //    {
 
-                        }
-                        chargeControl.StopCharge();
-                        break;
+                    //    }
+                    //    chargeControl.StopCharge();
+                    //    break;
 
                     case 'C':
                         door.LockDoor();

@@ -18,7 +18,7 @@ namespace Ladeskab.Test.Unit
         private IDisplay _display;
         private IChargeControl _chargeControl;
         private IDoor _door;
-        private int eventCount { get; set; }
+        public int EventCount { get; set; }
 
 
         [SetUp]
@@ -27,31 +27,46 @@ namespace Ladeskab.Test.Unit
             _rfidReader = Substitute.For<IRFIDReader>();
             _display = Substitute.For<IDisplay>();
             _chargeControl= Substitute.For<IChargeControl>();
-            _door = Substitute.For<IDoor>();
+            _door = new Door(); //Substitute.For<IDoor>();
             _uut = new StationControl(_rfidReader, _display, _door, _chargeControl);
         }
 
 
-
+        
 
 
         [Test]
-        public void doorOpened_IsTrue()
+        public void doorOpened_EventHandler_Called()
         {
-            //_door.DoorOpenEvent += (o,e) => _{};  //subscribe 
             _door.SimulateDoorOpens();
-            _door.DoorOpenEvent += Raise.Event();
-            Assert.That(_uut.DoorOpened(_door,EventArgs.Empty), e);
-            //_uut.Received(1).DoorOpened(_door,EventArgs.Empty);
+            _display.Received(1).ConnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
         }
 
 
         [Test]
-        public void doorClosed_Istrue()
+        public void doorClosed_EventHandler_Called()
         {
-
+            _door.SimulateDoorOpens(); //open door inorder to close it again
+            _door.SimulateDoorCloses(); 
+            _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
         }
 
+
+        [Test]
+        public void doorOpened_EventHandler_NotCalled()
+        {
+            _door.SimulateDoorOpens(); //It's able to open the first time
+            _door.SimulateDoorOpens(); //Cannot open again hence door already open 
+            _display.Received(1).ConnectPhone(); //Expected only one call
+        }
+
+
+        [Test]
+        public void doorClosed_EventHandler_NotCalled()
+        {
+            _door.SimulateDoorCloses();
+            _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
+        }
 
     }
 }
