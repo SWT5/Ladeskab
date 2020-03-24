@@ -150,7 +150,19 @@ namespace Ladeskab.Test.Unit
             displaySimulator.Received(1).DisconnectPhone();
         }
 
+        [Test]
+        public void WrongRfIDtag()
+        {
+            uut_.IsConnected();
+            displaySimulator.Received(1).WrongRfid();
+        }
 
+        [Test]
+        public void LoadingofRDidtag()
+        {
+            uut_.IsConnected();
+            displaySimulator.Received(1).LoadRfid();
+        }
         
     }
 }

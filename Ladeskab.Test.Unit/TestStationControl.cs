@@ -66,31 +66,48 @@ namespace Ladeskab.Test.Unit
 
 
 
-        //[Test]
-        //public void doorClosed_EventHandler_Called()
-        //{
-        //    _door.DoorOpenEvent += Raise.Event();
-        //    //_door.SimulateDoorOpens(); //open door inorder to close it again
-        //    _door.DoorCloseEvent += Raise.Event();
-        //    //_door.SimulateDoorCloses(); 
-        //    _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
-        //}
+        [Test]
+        public void doorClosed_EventHandler_Called_DoorOpenedCase()
+        {
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens(); //open door inorder to close it again
+            _door.DoorCloseEvent += Raise.Event();
+            //_door.SimulateDoorCloses(); 
+            _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
+        }
+
+        [Test]
+        public void doorClosed_EventHandler_AvailableCase()
+        {
+            _door.DoorCloseEvent += Raise.Event();
+            _display.Received(0).LoadRfid();
+        }
+
+        [TestCase("123")]
+        public void doorClosed_EventHandler_LockedCase(string newRfID)
+        {
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs {Id = newRfID});
+            _door.DoorCloseEvent += Raise.Event(); 
+
+        }
 
 
-        //[Test]
-        //public void doorClosed_EventHandler_NotCalled()
-        //{
-        //    _door.SimulateDoorCloses();
-        //    _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
-        //}
+        [Test]
+        public void doorClosed_EventHandler_NotCalled()
+        {
+            _door.DoorCloseEvent += Raise.Event(); 
 
-        //[Test]
-        //public void RFIDReaderDetected_case_Available_isConnected()
-        //{
-            
-        //    _chargeControl.IsConnected();
-        //    _rfidReader.RegisterId("1");    
+            //_door.SimulateDoorCloses();
+            _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
+        }
 
-        //}
+        [Test]
+        public void RFIDReaderDetected_case_Available_isConnected()
+        {
+
+            _chargeControl.IsConnected();
+            _rfidReader.RegisterId("1");
+
+        }
     }
 }
