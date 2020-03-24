@@ -55,6 +55,7 @@ namespace Ladeskab.Test.Unit
         {
             _door.DoorOpenEvent += Raise.Event(); //first time open door
             _door.DoorOpenEvent += Raise.Event(); //not able to open again
+            _logFile.Received(1).LogError("Not expected to open when already opened");
         }
 
         [Test]
