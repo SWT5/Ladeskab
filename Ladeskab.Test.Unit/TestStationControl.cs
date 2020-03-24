@@ -32,13 +32,7 @@ namespace Ladeskab.Test.Unit
         }
 
 
-        [Test]
-        public void RFID_reader_Lockedstate_ifStatementCheck()
-        {
-            _door.SimulateDoorOpens();
-            _rfidReader.RegisterId("1"); //raise event 
-
-        }
+        
 
 
         [Test]
