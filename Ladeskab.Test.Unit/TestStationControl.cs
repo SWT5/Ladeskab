@@ -8,6 +8,7 @@ using Ladeskab.Interfaces;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
+using UsbSimulator;
 
 namespace Ladeskab.Test.Unit
 {
@@ -19,7 +20,6 @@ namespace Ladeskab.Test.Unit
         private IChargeControl _chargeControl;
         private ILogFile _logFile;
         private IDoor _door;
-
 
         [SetUp]
         public void Setup()
@@ -45,6 +45,7 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorOpened_EventHandler_AvailableCase()
         {
+            
             _door.DoorOpenEvent += Raise.Event();
             //_door.SimulateDoorOpens();
             _display.Received(1).ConnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
@@ -97,10 +98,9 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void RFIDReaderDetected_case_Available_isConnected()
         {
-
-            _chargeControl.IsConnected();
-            _rfidReader.RegisterId("1");
-
+            _rfidReader.RfidDetectedEvent +=
+                Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() {Id = "1"});
+            _display.Received(1).PhoneStartCharging();
         }
     }
 }
