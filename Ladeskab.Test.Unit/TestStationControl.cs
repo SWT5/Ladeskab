@@ -27,7 +27,7 @@ namespace Ladeskab.Test.Unit
             _rfidReader = Substitute.For<IRFIDReader>();
             _display = Substitute.For<IDisplay>();
             _chargeControl= Substitute.For<IChargeControl>();
-            _door = new Door(); //Substitute.For<IDoor>();
+            _door = Substitute.For<IDoor>();
             _uut = new StationControl(_rfidReader, _display, _door, _chargeControl);
         }
 

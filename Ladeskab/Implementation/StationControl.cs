@@ -29,7 +29,7 @@ namespace Ladeskab
         private IDisplay _display;
         private IDoor _door;
         private IChargeControl _chargeControl;
-        private IRFIDReader _rfidReader;
+        //private IRFIDReader _rfidReader; 
         private string _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
@@ -41,7 +41,7 @@ namespace Ladeskab
             _display = display;
             _door = door;
             _chargeControl = chargeControl;
-            _rfidReader = rfidreader;
+            /*_rfidReader = rfidreader;*/
 
             //event connections 
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
