@@ -46,5 +46,11 @@ namespace Ladeskab.Implementation
             _usbCharger.StopCharge();
             Display_.DisconnectPhone();
         }
+
+        public void userConnectingPhone()
+        {
+            Console.WriteLine("Bruger tilslutter telefon");
+            IsConnected();
+        }
     }
 }
