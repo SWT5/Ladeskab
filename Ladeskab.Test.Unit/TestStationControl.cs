@@ -51,23 +51,18 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void doorOpened_EventHandler_DoorOpenCase()
+        public void doorOpened_EventHandler_DoorOpenedCase()
         {
-            _door.DoorOpenEvent += Raise.Event();
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //It's able to open the first time
-            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
-            _display.Received(1).ConnectPhone(); //Expected only one call
+            _door.DoorOpenEvent += Raise.Event(); //first time open door
+            _door.DoorOpenEvent += Raise.Event(); //not able to open again
+
         }
 
         [Test]
         public void doorOpened_EventHandler_LockedCase()
         {
-            _door.LockDoor();
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //It's able to open the first time
-            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
-            _display.Received(1).ConnectPhone(); //Expected only one call
+            _door.LockDoor(); //set the door to be locked 
+            _door.DoorOpenEvent += Raise.Event(); //open door event 
         }
 
 
