@@ -52,7 +52,7 @@ namespace Ladeskab
             _state = LadeskabState.Available;
         }
 
-        public void LockDoor()
+        public void setDoorState_Locked()
         {
             _state = LadeskabState.Locked;
         }
@@ -76,7 +76,7 @@ namespace Ladeskab
 
                         _display.PhoneStartCharging();
                         //Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
-                        _state = LadeskabState.Locked;
+                        setDoorState_Locked();
                     }
                     else
                     {
