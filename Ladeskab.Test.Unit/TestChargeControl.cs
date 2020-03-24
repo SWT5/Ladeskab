@@ -116,10 +116,11 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void eventCalled1Time()
+        public void eventCalledTime()
         {
             usbCharger_.ReceivedWithAnyArgs(eventCount);
         }
+
 
         [Test]
         public void EventNotReceived()
