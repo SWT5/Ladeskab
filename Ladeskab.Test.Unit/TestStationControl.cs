@@ -62,6 +62,7 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorOpened_EventHandler_LockedCase()
         {
+            _chargeControl.IsConnected().Returns(true);
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _door.DoorOpenEvent += Raise.Event(); //open door event 
         }
