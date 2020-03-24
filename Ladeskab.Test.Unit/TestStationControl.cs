@@ -62,8 +62,9 @@ namespace Ladeskab.Test.Unit
         public void doorOpened_EventHandler_LockedCase()
         {
             _door.LockDoor(); //set the door to be locked 
+            _door.LockDoor();
             _door.DoorOpenEvent += Raise.Event(); //open door event 
-            _door.Received(1).LockDoor();
+            _door.Received(2).LockDoor();
         }
 
 
