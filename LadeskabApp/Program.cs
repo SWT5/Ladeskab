@@ -7,7 +7,6 @@ using Ladeskab;
 using Ladeskab.Implementation;
 using Ladeskab.Interfaces;
 using Ladeskab.Simulator;
-using NSubstitute;
 using UsbSimulator;
 
 namespace LadeskabApp
@@ -37,17 +36,17 @@ namespace LadeskabApp
                         finish = true;
                         break;
 
-                    case 'O':
-                        if (id=="")
-                        {
-                            door.UnlockDoor();
-                        }
-                        else
-                        {
+                    //case 'O':
+                    //    if (id=="")
+                    //    {
+                    //        door.UnlockDoor();
+                    //    }
+                    //    else if (id)
+                    //    {
 
-                        }
-                        chargeControl.StopCharge();
-                        break;
+                    //    }
+                    //    chargeControl.StopCharge();
+                    //    break;
 
                     case 'C':
                         door.LockDoor();

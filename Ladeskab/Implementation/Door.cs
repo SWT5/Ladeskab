@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using Ladeskab.Interfaces;
 
 
@@ -57,10 +58,12 @@ namespace Ladeskab.Implementation
                 DoorState = false; //Door is open 
                 OnDoorOpened();
             }
-            else
+            else if (LockState)
             {
                 Console.WriteLine("User cant open door, cause its locked");
             }
+            else
+                Console.WriteLine("Door already open");
         }
 
         // simulering til at kalde event DoorCloseEvent
