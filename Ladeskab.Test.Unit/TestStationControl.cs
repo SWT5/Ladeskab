@@ -33,10 +33,9 @@ namespace Ladeskab.Test.Unit
 
 
         [Test]
-        public void RFID_reader_Lockedstate_ifStatementCheck()
+        public void RFID_reader_DoorOpenState_case()
         {
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens();
+            _door.DoorOpenEvent += Raise.Event(); //raise event to simulate door opens 
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"});
             //_rfidReader.RegisterId("1"); //raise event 
 
@@ -44,12 +43,33 @@ namespace Ladeskab.Test.Unit
 
 
         [Test]
-        public void doorOpened_EventHandler_Called()
+        public void doorOpened_EventHandler_AvailableCase()
         {
             _door.DoorOpenEvent += Raise.Event();
             //_door.SimulateDoorOpens();
             _display.Received(1).ConnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
         }
+
+        [Test]
+        public void doorOpened_EventHandler_DoorOpenCase()
+        {
+            _door.DoorOpenEvent += Raise.Event();
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens(); //It's able to open the first time
+            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
+            _display.Received(1).ConnectPhone(); //Expected only one call
+        }
+
+        [Test]
+        public void doorOpened_EventHandler_LockedCase()
+        {
+            _door.LockDoor();
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens(); //It's able to open the first time
+            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
+            _display.Received(1).ConnectPhone(); //Expected only one call
+        }
+
 
 
         [Test]
@@ -63,15 +83,7 @@ namespace Ladeskab.Test.Unit
         }
 
 
-        [Test]
-        public void doorOpened_EventHandler_NotCalled()
-        {
-            _door.DoorOpenEvent += Raise.Event(); 
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //It's able to open the first time
-            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
-            _display.Received(1).ConnectPhone(); //Expected only one call
-        }
+        
 
 
         [Test]
