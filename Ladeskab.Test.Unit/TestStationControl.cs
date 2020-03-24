@@ -80,26 +80,18 @@ namespace Ladeskab.Test.Unit
         public void doorClosed_EventHandler_AvailableCase()
         {
             _door.DoorCloseEvent += Raise.Event();
-            _display.Received(0).LoadRfid();
+            _logFile.Received(1).LogError("Door is already closed");
         }
 
         [TestCase("123")]
         public void doorClosed_EventHandler_LockedCase(string newRfID)
         {
             _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs {Id = newRfID});
-            _door.DoorCloseEvent += Raise.Event(); 
+            _door.DoorCloseEvent += Raise.Event();
+            _logFile.Received(1).LogError("The door is locked - can't close in this state");
 
         }
 
-
-        [Test]
-        public void doorClosed_EventHandler_NotCalled()
-        {
-            _door.DoorCloseEvent += Raise.Event(); 
-
-            //_door.SimulateDoorCloses();
-            _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
-        }
 
         [Test]
         public void RFIDReaderDetected_case_Available_isConnected()
