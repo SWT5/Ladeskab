@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -112,13 +113,24 @@ namespace Ladeskab
         // Her mangler de andre trigger handlere
         public void DoorOpened(object sender, EventArgs e)
         {
-            _display.ConnectPhone();
+            switch (_state)
+            {
+                case LadeskabState.DoorOpen: //Not expected case 
+                    Console.WriteLine("Not expected to open when already opened");
+                    break;
+                case LadeskabState.Locked:
+                    Console.WriteLine("Can't open when locked");
+                    break;
+                case LadeskabState.Available:
+                    _display.ConnectPhone();
+                    _state = LadeskabState.DoorOpen;
+                    break;
+            }
         }
 
         public void DoorClosed(object sender, EventArgs e)
         {
             _display.LoadRfid(); //
-          
         }
 
 
