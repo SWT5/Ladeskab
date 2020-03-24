@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Interfaces;
 
 namespace Ladeskab.Simulator
 {
-    public class DisplaySimulator
+    public class DisplaySimulator : IDisplay
     {
 
         public void ConnectPhone()
