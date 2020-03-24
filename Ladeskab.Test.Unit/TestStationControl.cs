@@ -106,6 +106,13 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
+        public void RFIDReaderDetected_case_ConnectionError()
+        {
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
+            _display.Received(1).ConnectionError();
+        }
+
+        [Test]
         public void correctID_disconnect_phone()
         {
             _chargeControl.IsConnected().Returns(true);
