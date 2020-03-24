@@ -25,7 +25,7 @@ namespace LadeskabApp
             ILogFile logFile = new LogFile(); 
             StationControl stationControl = new StationControl(reader, display, door, chargeControl, logFile);
             string id = "";
-
+            usbCharger.SimulateConnected(false);    // starter aldrig med at telefon er connected
             bool finish = false;
             do
             {
