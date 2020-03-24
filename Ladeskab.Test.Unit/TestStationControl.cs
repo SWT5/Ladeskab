@@ -104,5 +104,14 @@ namespace Ladeskab.Test.Unit
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _display.Received(1).PhoneStartCharging();
         }
+
+        [Test]
+        public void correctID_disconnect_phone()
+        {
+            _chargeControl.IsConnected().Returns(true);
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
+            _display.Received(1).DisconnectPhone();
+        }
     }
 }
