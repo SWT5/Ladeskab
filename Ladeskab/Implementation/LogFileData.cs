@@ -22,19 +22,19 @@ namespace Ladeskab.Implementation
 
         public string Date
         {
-            get { return Date; }
+            get { return _date; }
             set { _date = value; }
         }
 
         public string Id
         {
-            get { return Id; }
+            get { return _id; }
             set { _id = value; }
         }
 
         public string State
         {
-            get { return State; }
+            get { return _state; }
             set { _state = value; }
         }
 

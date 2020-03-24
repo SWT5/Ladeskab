@@ -9,10 +9,10 @@ namespace Ladeskab.Implementation
 {
     public class LogFile : ILogFile
     {
-        private List<LogFileData> listOfData;
+        public List<LogFileData> listOfData { get; }
         private string _date;
         private string _id;
-        private string _LockedData = "Door locked";
+        private string _LockedData = "Door Locked";
         private string _UnlockedData = "Door Unlocked";
         private string _ErrorData;
 
@@ -40,6 +40,5 @@ namespace Ladeskab.Implementation
             listOfData.Add(new LogFileData(_id, _date, _ErrorData));
         }
     }
-
 }
 
