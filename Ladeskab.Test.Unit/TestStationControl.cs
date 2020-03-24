@@ -52,6 +52,16 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
+        public void doorOpened_EventHandler_AvailableCase_disconnectPhone()
+        {
+            _chargeControl.IsConnected().Returns(true);
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens();
+            _display.Received(1).DisconnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
+        }
+
+
+        [Test]
         public void doorOpened_EventHandler_DoorOpenedCase()
         {
             _door.DoorOpenEvent += Raise.Event(); //first time open door
