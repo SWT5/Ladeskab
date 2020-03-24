@@ -130,7 +130,20 @@ namespace Ladeskab
 
         public void DoorClosed(object sender, EventArgs e)
         {
-            _display.LoadRfid(); //
+            switch (_state)
+            {
+                case LadeskabState.DoorOpen:
+                    _display.LoadRfid();
+                    _state = LadeskabState.Available;
+                    break;
+                case LadeskabState.Locked:
+                    Console.WriteLine("The door is locked - can't close in this state");
+                    break;
+                case LadeskabState.Available:
+                    Console.WriteLine("Door is already closed");
+                    break;
+            }
+            
         }
 
 

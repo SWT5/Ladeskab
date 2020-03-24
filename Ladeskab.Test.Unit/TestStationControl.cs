@@ -35,7 +35,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void RFID_reader_Lockedstate_ifStatementCheck()
         {
-            _door.SimulateDoorOpens();
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens();
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"});
             //_rfidReader.RegisterId("1"); //raise event 
 
@@ -45,7 +46,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorOpened_EventHandler_Called()
         {
-            _door.SimulateDoorOpens();
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens();
             _display.Received(1).ConnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
         }
 
@@ -53,8 +55,10 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorClosed_EventHandler_Called()
         {
-            _door.SimulateDoorOpens(); //open door inorder to close it again
-            _door.SimulateDoorCloses(); 
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens(); //open door inorder to close it again
+            _door.DoorCloseEvent += Raise.Event();
+            //_door.SimulateDoorCloses(); 
             _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
         }
 
@@ -62,8 +66,10 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorOpened_EventHandler_NotCalled()
         {
-            _door.SimulateDoorOpens(); //It's able to open the first time
-            _door.SimulateDoorOpens(); //Cannot open again hence door already open 
+            _door.DoorOpenEvent += Raise.Event(); 
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens(); //It's able to open the first time
+            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
             _display.Received(1).ConnectPhone(); //Expected only one call
         }
 
