@@ -118,11 +118,11 @@ namespace Ladeskab
         {
             switch (_state)
             {
-                case LadeskabState.DoorOpen: //Not expected case 
-                    Console.WriteLine("Not expected to open when already opened");
-                    break;
                 case LadeskabState.Locked:
                     Console.WriteLine("Can't open when locked");
+                    break;
+                case LadeskabState.DoorOpen: //Not expected case 
+                    Console.WriteLine("Not expected to open when already opened");
                     break;
                 case LadeskabState.Available:
                     _display.ConnectPhone();

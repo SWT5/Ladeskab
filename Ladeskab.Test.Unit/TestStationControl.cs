@@ -51,55 +51,51 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void doorOpened_EventHandler_DoorOpenCase()
+        public void doorOpened_EventHandler_DoorOpenedCase()
         {
-            _door.DoorOpenEvent += Raise.Event();
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //It's able to open the first time
-            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
-            _display.Received(1).ConnectPhone(); //Expected only one call
+            _door.DoorOpenEvent += Raise.Event(); //first time open door
+            _door.DoorOpenEvent += Raise.Event(); //not able to open again
+
         }
 
         [Test]
         public void doorOpened_EventHandler_LockedCase()
         {
-            _door.LockDoor();
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //It's able to open the first time
-            //_door.SimulateDoorOpens(); //Cannot open again hence door already open 
-            _display.Received(1).ConnectPhone(); //Expected only one call
+            _door.LockDoor(); //set the door to be locked 
+            _door.DoorOpenEvent += Raise.Event(); //open door event 
+            _door.Received(1).LockDoor();
         }
 
 
 
-        [Test]
-        public void doorClosed_EventHandler_Called()
-        {
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //open door inorder to close it again
-            _door.DoorCloseEvent += Raise.Event();
-            //_door.SimulateDoorCloses(); 
-            _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
-        }
+        //[Test]
+        //public void doorClosed_EventHandler_Called()
+        //{
+        //    _door.DoorOpenEvent += Raise.Event();
+        //    //_door.SimulateDoorOpens(); //open door inorder to close it again
+        //    _door.DoorCloseEvent += Raise.Event();
+        //    //_door.SimulateDoorCloses(); 
+        //    _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
+        //}
 
 
         
 
 
-        [Test]
-        public void doorClosed_EventHandler_NotCalled()
-        {
-            _door.SimulateDoorCloses();
-            _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
-        }
+        //[Test]
+        //public void doorClosed_EventHandler_NotCalled()
+        //{
+        //    _door.SimulateDoorCloses();
+        //    _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
+        //}
 
-        [Test]
-        public void RFIDReaderDetected_case_Available_isConnected()
-        {
+        //[Test]
+        //public void RFIDReaderDetected_case_Available_isConnected()
+        //{
             
-            _chargeControl.IsConnected();
-            _rfidReader.RegisterId("1");    
+        //    _chargeControl.IsConnected();
+        //    _rfidReader.RegisterId("1");    
 
-        }
+        //}
     }
 }
