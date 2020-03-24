@@ -46,7 +46,7 @@ namespace Ladeskab
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
             door.DoorOpenEvent += DoorOpened; //Subscription to doorOpenEvent 
             door.DoorCloseEvent += DoorClosed; //subscription to doorCloseEvent 
-
+            _state = LadeskabState.Available;
         }
 
 
