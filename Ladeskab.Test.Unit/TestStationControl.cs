@@ -17,6 +17,7 @@ namespace Ladeskab.Test.Unit
         private IRFIDReader _rfidReader;
         private IDisplay _display;
         private IChargeControl _chargeControl;
+        private ILogFile _logFile;
         private IDoor _door;
 
 
@@ -27,9 +28,9 @@ namespace Ladeskab.Test.Unit
             _display = Substitute.For<IDisplay>();
             _chargeControl= Substitute.For<IChargeControl>();
             _door = Substitute.For<IDoor>();
-            _uut = new StationControl(_rfidReader, _display, _door, _chargeControl);
+            _logFile = Substitute.For<ILogFile>();
+            _uut = new StationControl(_rfidReader, _display, _door, _chargeControl, _logFile);
         }
-
 
         [Test]
         public void RFID_reader_DoorOpenState_case()
@@ -54,7 +55,6 @@ namespace Ladeskab.Test.Unit
         {
             _door.DoorOpenEvent += Raise.Event(); //first time open door
             _door.DoorOpenEvent += Raise.Event(); //not able to open again
-
         }
 
         [Test]
@@ -75,9 +75,6 @@ namespace Ladeskab.Test.Unit
         //    //_door.SimulateDoorCloses(); 
         //    _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
         //}
-
-
-        
 
 
         //[Test]

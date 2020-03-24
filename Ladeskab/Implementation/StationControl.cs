@@ -29,18 +29,20 @@ namespace Ladeskab
         private IDisplay _display;
         private IDoor _door;
         private IChargeControl _chargeControl;
+        private ILogFile _logFile;
         //private IRFIDReader _rfidReader; 
         private string _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IRFIDReader rfidreader, IDisplay display, IDoor door, IChargeControl chargeControl)
+        public StationControl(IRFIDReader rfidreader, IDisplay display, IDoor door, IChargeControl chargeControl, ILogFile logFile)
         {
             //Objects being instantiated 
             _display = display;
             _door = door;
             _chargeControl = chargeControl;
+            _logFile = logFile;
             /*_rfidReader = rfidreader;*/
 
             //event connections 
@@ -119,10 +121,10 @@ namespace Ladeskab
             switch (_state)
             {
                 case LadeskabState.Locked:
-                    Console.WriteLine("Can't open when locked");
+                    _logFile.LogError("Can't open when locked");
                     break;
                 case LadeskabState.DoorOpen: //Not expected case 
-                    Console.WriteLine("Not expected to open when already opened");
+                    _logFile.LogError("Not expected to open when already opened");
                     break;
                 case LadeskabState.Available:
                     _display.ConnectPhone();
@@ -140,13 +142,12 @@ namespace Ladeskab
                     _state = LadeskabState.Available;
                     break;
                 case LadeskabState.Locked:
-                    Console.WriteLine("The door is locked - can't close in this state");
+                    _logFile.LogError("The door is locked - can't close in this state");
                     break;
                 case LadeskabState.Available:
-                    Console.WriteLine("Door is already closed");
+                    _logFile.LogError("Door is already closed");
                     break;
             }
-            
         }
 
 
