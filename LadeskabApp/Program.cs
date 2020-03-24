@@ -21,7 +21,8 @@ namespace LadeskabApp
             IUsbCharger usbCharger =new UsbChargerSimulator();
             IDisplay display = new DisplaySimulator();
             IChargeControl chargeControl =new ChargeControl(usbCharger);
-            StationControl stationControl = new StationControl(reader, display, door, chargeControl);
+            ILogFile logFile = new LogFile(); 
+            StationControl stationControl = new StationControl(reader, display, door, chargeControl, logFile);
             string id = "";
 
             bool finish = false;

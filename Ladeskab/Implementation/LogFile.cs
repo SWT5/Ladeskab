@@ -7,7 +7,7 @@ using Ladeskab.Interfaces;
 
 namespace Ladeskab.Implementation
 {
-    class LogFile : ILogFile
+    public class LogFile : ILogFile
     {
         private List<LogFileData> listOfData;
         private string _date;
