@@ -84,6 +84,13 @@ namespace Ladeskab.Test.Unit
             usbCharger_.Connected.Equals(false);
         }
 
+        [Test]
+        public void ConnectionError()
+        {
+            uut_.StopCharge();
+            displaySimulator.Received(1).ConnectionError();
+        }
+
         /***    CurrentState test     ***/
         [Test]
         public void CurrentValue_Fivehundred()
@@ -143,5 +150,7 @@ namespace Ladeskab.Test.Unit
             displaySimulator.Received(1).DisconnectPhone();
         }
 
+
+        
     }
 }
