@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace LadeskabApp
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                System.Console.WriteLine("Indtast E, O, C, R, T, A: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -53,6 +54,33 @@ namespace LadeskabApp
                         id = idString;
                         reader.RegisterId(id);
                         break;
+                        
+                    case 'T':
+                        if (door.DoorState == false)
+                        {
+                            Console.WriteLine("Bruger tilslutter telefon");
+                            usbCharger.SimulateConnected(true);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Bruger kan ikke tilslutte telefon, da dør er lukket");
+                            break;
+                        }
+
+
+                    case 'A':
+                        if(door.DoorState == false)
+                        {
+                            Console.WriteLine("Bruger afkobler telefon");
+                            usbCharger.SimulateConnected(false);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Bruger kan ikke afkoble telefon, da dør er lukket");
+                            break;
+                        }
 
                     default:
                         break;

@@ -122,9 +122,18 @@ namespace Ladeskab
                     _logFile.LogError("Not expected to open when already opened");
                     break;
                 case LadeskabState.Available:
-                    _display.ConnectPhone();
-                    _state = LadeskabState.DoorOpen;
-                    break;
+                    if (_chargeControl.IsConnected() == false)
+                    {
+                        _display.ConnectPhone();
+                        _state = LadeskabState.DoorOpen;
+                        break;
+                    }
+                    else
+                    {
+                        _display.DisconnectPhone();
+                        _state = LadeskabState.DoorOpen;
+                        break;
+                    }
             }
         }
 
