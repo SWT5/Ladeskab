@@ -68,5 +68,6 @@ namespace Ladeskab.Test.Unit
             _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
         }
 
+        
     }
 }
