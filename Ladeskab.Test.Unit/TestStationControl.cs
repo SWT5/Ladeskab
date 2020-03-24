@@ -27,12 +27,19 @@ namespace Ladeskab.Test.Unit
             _rfidReader = Substitute.For<IRFIDReader>();
             _display = Substitute.For<IDisplay>();
             _chargeControl= Substitute.For<IChargeControl>();
-            _door = new Door(); //Substitute.For<IDoor>();
+            _door = Substitute.For<IDoor>();
             _uut = new StationControl(_rfidReader, _display, _door, _chargeControl);
         }
 
 
-        
+        [Test]
+        public void RFID_reader_Lockedstate_ifStatementCheck()
+        {
+            _door.SimulateDoorOpens();
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"});
+            //_rfidReader.RegisterId("1"); //raise event 
+
+        }
 
 
         [Test]
