@@ -19,7 +19,9 @@ namespace LadeskabApp
             IDoor door = new Door(); //temporary
             IRFIDReader reader = new RFIDReader();
             IUsbCharger usbCharger =new UsbChargerSimulator();
+            IDisplay display = new DisplaySimulator();
             IChargeControl chargeControl =new ChargeControl(usbCharger);
+            StationControl stationControl = new StationControl(reader, display, door, chargeControl);
             string id = "";
 
             bool finish = false;
@@ -36,21 +38,12 @@ namespace LadeskabApp
                         finish = true;
                         break;
 
-                    //case 'O':
-                    //    if (id=="")
-                    //    {
-                    //        door.UnlockDoor();
-                    //    }
-                    //    else if (id)
-                    //    {
-
-                    //    }
-                    //    chargeControl.StopCharge();
-                    //    break;
+                    case 'O':
+                        door.SimulateDoorOpens();
+                        break;
 
                     case 'C':
-                        door.LockDoor();
-                        chargeControl.StartCharge();
+                        door.SimulateDoorCloses();
                         break;
 
                     case 'R':
