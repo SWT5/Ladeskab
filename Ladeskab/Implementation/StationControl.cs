@@ -50,7 +50,10 @@ namespace Ladeskab
             _state = LadeskabState.Available;
         }
 
-
+        public void LockDoor()
+        {
+            _state = LadeskabState.Locked;
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(object sender, RfidDetectedEventArgs e)
