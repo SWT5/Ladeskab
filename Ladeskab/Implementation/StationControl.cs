@@ -24,11 +24,11 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private readonly IUsbCharger _charger;
-        private readonly IDisplay _display;
-        private readonly IDoor _door;
-        private readonly IChargeControl _chargeControl;
-        private readonly IRFIDReader _rfidReader;
+        private IUsbCharger _charger;
+        private IDisplay _display;
+        private IDoor _door;
+        private IChargeControl _chargeControl;
+        private IRFIDReader _rfidReader;
         private string _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
@@ -46,7 +46,7 @@ namespace Ladeskab
             rfidreader.RfidDetectedEvent += RfidDetected; //This is the subscription to RFIDevents 
             door.DoorOpenEvent += DoorOpened; //Subscription to doorOpenEvent 
             door.DoorCloseEvent += DoorClosed; //subscription to doorCloseEvent 
-
+            _state = LadeskabState.Available;
         }
 
 
