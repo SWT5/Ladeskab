@@ -65,7 +65,6 @@ namespace Ladeskab.Test.Unit
         }
 
 
-
         //[Test]
         //public void doorClosed_EventHandler_Called()
         //{
