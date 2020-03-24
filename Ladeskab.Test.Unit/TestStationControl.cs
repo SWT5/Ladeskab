@@ -36,7 +36,8 @@ namespace Ladeskab.Test.Unit
         public void RFID_reader_Lockedstate_ifStatementCheck()
         {
             _door.SimulateDoorOpens();
-            _rfidReader.RegisterId("1"); //raise event 
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"});
+            //_rfidReader.RegisterId("1"); //raise event 
 
         }
 
