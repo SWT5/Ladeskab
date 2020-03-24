@@ -7,6 +7,7 @@ using Ladeskab;
 using Ladeskab.Implementation;
 using Ladeskab.Interfaces;
 using Ladeskab.Simulator;
+using NSubstitute;
 using UsbSimulator;
 
 namespace LadeskabApp
@@ -41,7 +42,7 @@ namespace LadeskabApp
                         {
                             door.UnlockDoor();
                         }
-                        else if (id)
+                        else
                         {
 
                         }
