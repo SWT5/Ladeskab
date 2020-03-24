@@ -20,13 +20,13 @@ namespace Ladeskab.Test.Unit
         private IChargeControl _chargeControl;
         private ILogFile _logFile;
         private IDoor _door;
-
+        
         [SetUp]
         public void Setup()
         {
             _rfidReader = Substitute.For<IRFIDReader>();
             _display = Substitute.For<IDisplay>();
-            _chargeControl= Substitute.For<IChargeControl>();
+            _chargeControl = Substitute.For<IChargeControl>();
             _door = Substitute.For<IDoor>();
             _logFile = Substitute.For<ILogFile>();
             _uut = new StationControl(_rfidReader, _display, _door, _chargeControl, _logFile);
@@ -36,7 +36,7 @@ namespace Ladeskab.Test.Unit
         public void RFID_reader_DoorOpenState_case()
         {
             _door.DoorOpenEvent += Raise.Event(); //raise event to simulate door opens 
-            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"});
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"}); //raise event RFIDdetected
             //_rfidReader.RegisterId("1"); //raise event 
 
         }
@@ -62,7 +62,7 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorOpened_EventHandler_LockedCase()
         {
-            _uut.setDoorState_Locked();
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _door.DoorOpenEvent += Raise.Event(); //open door event 
         }
 
@@ -88,7 +88,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorClosed_EventHandler_LockedCase()
         {
-            _uut.setDoorState_Locked();
+            _chargeControl.IsConnected().Returns(true);
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _door.DoorCloseEvent += Raise.Event();
             _logFile.Received(1).LogError("The door is locked - can't close in this state");
 
@@ -98,8 +99,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void RFIDReaderDetected_case_Available_isConnected()
         {
-            _rfidReader.RfidDetectedEvent +=
-                Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() {Id = "1"});
+            _chargeControl.IsConnected().Returns(true);
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _display.Received(1).PhoneStartCharging();
         }
     }

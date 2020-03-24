@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeChargecontrol.cs" />
     <Compile Include="TestLogFileData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestChargeControl.cs" />

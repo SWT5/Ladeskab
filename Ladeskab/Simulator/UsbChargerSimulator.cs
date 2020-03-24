@@ -27,10 +27,9 @@ namespace UsbSimulator
 
         public UsbChargerSimulator()
         {
-            CurrentValue = 0.0;
             Connected = true;
+            CurrentValue = 0.0;
             _overload = false;
-
             _timer = new System.Timers.Timer();
             _timer.Enabled = false;
             _timer.Interval = CurrentTickInterval;
