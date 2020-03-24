@@ -18,7 +18,6 @@ namespace Ladeskab.Test.Unit
         private IDisplay _display;
         private IChargeControl _chargeControl;
         private IDoor _door;
-        public int EventCount { get; set; }
 
 
         [SetUp]
@@ -61,10 +60,8 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorOpened_EventHandler_LockedCase()
         {
-            _door.LockDoor(); //set the door to be locked 
-            _door.LockDoor();
+            _uut.LockDoor();
             _door.DoorOpenEvent += Raise.Event(); //open door event 
-            _door.Received(2).LockDoor();
         }
 
 
