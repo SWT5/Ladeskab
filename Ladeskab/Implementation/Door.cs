@@ -12,7 +12,6 @@ namespace Ladeskab.Implementation
 {
     public class Door : IDoor
     {
-        DisplaySimulator display = new DisplaySimulator();
         // DoorState True = door is closed, false = door is open
         public bool DoorState { get; private set; } 
         // LockState true = locked, false = unlocked
@@ -76,7 +75,6 @@ namespace Ladeskab.Implementation
                 Console.WriteLine("User closes door");
                 DoorState = true; //Door is closed 
                 OnDoorClosed();
-                display.LoadRfid(); //print indlæs RFID
             }
             else
                 Console.WriteLine("door is already closed");
