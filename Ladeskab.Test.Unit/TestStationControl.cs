@@ -68,6 +68,13 @@ namespace Ladeskab.Test.Unit
             _display.Received(0).LoadRfid(); //expect 0 calls to LoadRfid
         }
 
-        
+        [Test]
+        public void RFIDReaderDetected_case_Available_isConnected()
+        {
+            
+            _chargeControl.IsConnected();
+            _rfidReader.RegisterId("1");    
+
+        }
     }
 }
