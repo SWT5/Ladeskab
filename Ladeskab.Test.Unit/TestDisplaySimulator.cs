@@ -13,6 +13,7 @@ namespace Ladeskab.Test.Unit
     class TestDisplaySimulator
     {
         private IDisplay _uut;
+
         [SetUp]
         public void setup()
         {
