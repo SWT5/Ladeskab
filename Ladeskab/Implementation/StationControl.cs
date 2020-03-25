@@ -64,10 +64,7 @@ namespace Ladeskab
                         _door.LockDoor();
                         _chargeControl.StartCharge();
                         _oldId = e.Id; //used to be id instead of e
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", e.Id); //used to be id instead of e
-                        }
+                        _logFile.LogDoorLocked(_oldId);
 
                         _display.PhoneStartCharging();
                         //Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
@@ -91,10 +88,7 @@ namespace Ladeskab
                     {
                         _chargeControl.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", e.Id); //used to be id instead of e
-                        }
+                        _logFile.LogDoorUnlocked(e.Id);
 
                         _display.DisconnectPhone();
                         //Console.WriteLine("Tag din telefon ud af skabet og luk døren");
@@ -103,7 +97,7 @@ namespace Ladeskab
                     else
                     {
                         _display.WrongRfid();
-                        //Console.WriteLine("Forkert RFID tag");
+                        _logFile.LogError("Forkert RFID tag med: " + e.Id);
                     }
 
                     break;
