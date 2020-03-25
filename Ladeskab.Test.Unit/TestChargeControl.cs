@@ -22,9 +22,9 @@ namespace Ladeskab.Test.Unit
         private ChargeControl uut_2;
         
         private IUsbCharger usbCharger_;        //Substitute: Fake
-        //private IDisplay display_;
+        
         private IUsbCharger _usbCharger = new UsbChargerSimulator();
-
+        //private IDisplay display_;
         //private DisplaySimulator displaySimulator;
 
 
