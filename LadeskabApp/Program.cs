@@ -49,7 +49,6 @@ namespace LadeskabApp
                         break;
 
                     case 'R':
-                        System.Console.WriteLine("Indtast RFID id: ");
                         string idString = System.Console.ReadLine();
                         id = idString;
                         reader.RegisterId(id);
