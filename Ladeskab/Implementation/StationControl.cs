@@ -136,13 +136,22 @@ namespace Ladeskab
             switch (_state)
             {
                 case LadeskabState.DoorOpen:
+                    //_display.LoadRfid();
+                    //_state = LadeskabState.Available;
+                    //break;
                     if (_chargeControl.IsConnected())
                     {
                         _display.LoadRfid();
+                        _state = LadeskabState.Available;
+                        break;
                     }
                     else
+                    {
+                        _display.NoPhoneConnected();
                         _state = LadeskabState.Available;
-                    break;
+                        break;
+                    }
+
                 case LadeskabState.Locked:
                     _logFile.LogError("The door is locked - can't close in this state");
                     break;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Ladeskab.Interfaces;
@@ -9,7 +10,6 @@ namespace Ladeskab.Simulator
 {
     public class DisplaySimulator : IDisplay
     {
-
         public void ConnectPhone()
         {
             Console.WriteLine("Tilslut telefon");
@@ -40,5 +40,9 @@ namespace Ladeskab.Simulator
             Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
         }
 
+        public void NoPhoneConnected()
+        {
+            Console.WriteLine("Ingen telefon forbundet - kan ikke låse");
+        }
     }
 }

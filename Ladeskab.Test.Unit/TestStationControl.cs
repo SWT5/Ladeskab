@@ -80,7 +80,7 @@ namespace Ladeskab.Test.Unit
 
 
         [Test]
-        public void doorClosed_EventHandler_Called_DoorOpenedCase()
+        public void doorClosed_EventHandler_Called_DoorOpenedCase_ifStatement()
         {
             _chargeControl.IsConnected().Returns(true);
             _door.DoorOpenEvent += Raise.Event();
@@ -88,6 +88,17 @@ namespace Ladeskab.Test.Unit
             _door.DoorCloseEvent += Raise.Event();
             //_door.SimulateDoorCloses(); 
             _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
+        }
+
+
+
+        [Test]
+        public void doorClosed_EventHandler_Called_DoorOpenedCase_elseStatement()
+        {
+            _door.DoorOpenEvent += Raise.Event();
+            //_door.SimulateDoorOpens(); //open door inorder to close it again
+            _door.DoorCloseEvent += Raise.Event(); //_door.SimulateDoorCloses(); 
+            _display.Received(1).NoPhoneConnected();
         }
 
         [Test]
@@ -104,7 +115,6 @@ namespace Ladeskab.Test.Unit
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _door.DoorCloseEvent += Raise.Event();
             _logFile.Received(1).LogError("The door is locked - can't close in this state");
-
         }
 
 
