@@ -13,7 +13,6 @@ namespace Ladeskab.Implementation
     {
         public double CurrentCharge { get; set; }
         private IUsbCharger _usbCharger = new UsbChargerSimulator();
-        private IDisplay Display_ = new DisplaySimulator();
 
 
 
