@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ladeskab.Implementation;
 using Ladeskab.Interfaces;
+using Ladeskab.Simulator;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
@@ -20,7 +21,8 @@ namespace Ladeskab.Test.Unit
         private IChargeControl _chargeControl;
         private ILogFile _logFile;
         private IDoor _door;
-        
+        //private DisplaySimulator displaySimulator;
+
         [SetUp]
         public void Setup()
         {
@@ -151,6 +153,41 @@ namespace Ladeskab.Test.Unit
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "2" });
             _display.Received(1).WrongRfid();
+        }
+
+
+        /***   Test display    ***/
+
+        [Test]
+        public void ConnectionError()
+        {
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
+            _display.Received(1).ConnectionError();
+        }
+
+        [Test]
+        public void displayIsConnected()
+        {
+            _door.DoorOpenEvent += Raise.Event();
+            _chargeControl.IsConnected().Returns(false);
+            _display.Received(1).ConnectPhone();
+        }
+
+        [Test]
+        public void displayPhoneStartCharging()
+        {
+            _chargeControl.IsConnected().Returns(true);
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
+            _display.Received(1).PhoneStartCharging();
+        }
+
+        [Test]
+        public void displayStopCharging()
+        {
+            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
+            _chargeControl.IsConnected().Returns(true);
+            _door.DoorOpenEvent += Raise.Event();
+            _display.Received(1).DisconnectPhone();
         }
     }
 }
