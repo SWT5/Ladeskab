@@ -1,59 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Interfaces;
+using Ladeskab.Simulator;
+using NUnit.Framework;
 
 namespace Ladeskab.Test.Unit
 {
     class TestDisplaySimulator
     {
-        //[Test]
-        //public void ConnectionError()
-        //{
-        //    uut_.StopCharge();
-        //    displaySimulator.Received(1).ConnectionError();
-        //}
+        private IDisplay _uut;
+        [SetUp]
+        public void setup()
+        {
+            _uut = new DisplaySimulator();
+        }
 
-        //[Test]
-        //public void displayIsConnected()
-        //{
-        //    uut_.IsConnected();
-        //    displaySimulator.Received(1).ConnectPhone();
-        //}
+        [Test]
+        public void ConnectionError_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.ConnectionError();
+            Assert.That(output.ToString(), Is.EqualTo("Din telefon er ikke ordentlig tilsluttet. Prøv igen.\r\n"));
+        }
 
-        //[Test]
-        //public void displayPhoneStartCharging()
-        //{
-        //    uut_.StartCharge();
-        //    displaySimulator.Received(1).PhoneStartCharging();
-        //}
+        [Test]
+        public void ConnectPhone_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.ConnectPhone();
+            Assert.That(output.ToString(), Is.EqualTo("Tilslut telefon\r\n"));
+        }
 
-        //[Test]
-        //public void displayStopCharging()
-        //{
-        //    uut_.StopCharge();
-        //    displaySimulator.Received(1).DisconnectPhone();
-        //}
+        [Test]
+        public void PhoneStartCharging_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.PhoneStartCharging();
+            Assert.That(output.ToString(), Is.EqualTo("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.\r\n"));
+        }
 
-        //[Test]
-        //public void WrongRfIDtag()
-        //{
-        //    uut_.IsConnected();
-        //    displaySimulator.Received(1).WrongRfid();
-        //}
+        [Test]
+        public void DisconnectPhone_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.DisconnectPhone();
+            Assert.That(output.ToString(), Is.EqualTo("Tag din telefon ud af skabet og luk døren\r\n"));
+        }
 
-        //[Test]
-        //public void LoadingofRDidtag()
-        //{
-        //    uut_.IsConnected();
-        //    displaySimulator.Received(1).LoadRfid();
-        //}
+        [Test]
+        public void WrongRfid_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.WrongRfid();
+            Assert.That(output.ToString(), Is.EqualTo("Forkert RFID tag\r\n"));
+        }
 
-        //[Test]
-        //public void NoPhoneConnected()
-        //{
+        [Test]
+        public void LoadRfid_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.LoadRfid();
+            Assert.That(output.ToString(), Is.EqualTo("Indlæs RFID\r\n"));
+            
+        }
 
-        //}
+        [Test]
+        public void NoPhoneConnected_ConsoleOutput_IsTrue()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.NoPhoneConnected();
+            Assert.That(output.ToString(), Is.EqualTo("Ingen telefon forbundet\r\n"));
+        }
     }
 }
