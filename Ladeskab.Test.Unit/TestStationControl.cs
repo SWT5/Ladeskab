@@ -82,6 +82,7 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorClosed_EventHandler_Called_DoorOpenedCase()
         {
+            _chargeControl.IsConnected().Returns(true);
             _door.DoorOpenEvent += Raise.Event();
             //_door.SimulateDoorOpens(); //open door inorder to close it again
             _door.DoorCloseEvent += Raise.Event();
