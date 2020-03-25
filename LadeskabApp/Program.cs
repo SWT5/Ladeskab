@@ -30,7 +30,13 @@ namespace LadeskabApp
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R, T, A: ");
+                Console.WriteLine("Indtast følgende for at interagere med ladeskab:");                
+                Console.WriteLine("E = Afslut program");
+                Console.WriteLine("O = Åben døren");
+                Console.WriteLine("C = Luk døren");
+                Console.WriteLine("R = Læs RFID");
+                Console.WriteLine("T = Tilslut telefon");
+                Console.WriteLine("A = Afkoble telefon");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 

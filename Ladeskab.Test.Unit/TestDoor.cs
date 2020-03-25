@@ -18,12 +18,10 @@ namespace Ladeskab.Test.Unit
         private Door uut_;
         public bool eventCalled { get; set; }
         public int eventCalledCount { get; set; }
-        //private IDoor door_;
 
         [SetUp]
         public void Setup()
         {
-            //door_ = Substitute.For<IDoor>();
             uut_ = new Door();
             eventCalled = false;
 
@@ -67,7 +65,6 @@ namespace Ladeskab.Test.Unit
         public void simulateDoorOpens_DoorOpenEvent_isFired()
         {
 
-            // hvordan tester man lige events og at det bliver fired? - er dette så rigtigt? 
             uut_.DoorOpenEvent += (Object,e) => eventCalled = true;
 
             uut_.SimulateDoorOpens();

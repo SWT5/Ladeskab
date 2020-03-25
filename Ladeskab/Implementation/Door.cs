@@ -50,7 +50,7 @@ namespace Ladeskab.Implementation
             DoorCloseEvent?.Invoke(this,null);
         }
 
-        // simuleringer til at klade event DoorOpenEvent
+        // simuleringer til at kalde event DoorOpenEvent
         public void SimulateDoorOpens()
         {
             if (!LockState && DoorState)    // door is unlocked and closed

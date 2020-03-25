@@ -31,8 +31,6 @@ namespace Ladeskab.Implementation
         public bool IsConnected()
         {
              return _usbCharger.Connected;
-            
-            //Display_.ConnectPhone();
         }
 
         public void StartCharge()

@@ -20,22 +20,16 @@ namespace Ladeskab.Test.Unit
 
         private ChargeControl uut_;
         private ChargeControl uut_2;
-        
-        private IUsbCharger usbCharger_;        //Substitute: Fake
-        
+        private IUsbCharger usbCharger_;      
         private IUsbCharger _usbCharger = new UsbChargerSimulator();
-        //private IDisplay display_;
-        //private DisplaySimulator displaySimulator;
-
+        
 
         [SetUp]
         public void Setup()
         {
             usbCharger_ = Substitute.For<IUsbCharger>();
-            //display_ = Substitute.For<IDisplay>();
             uut_ = new ChargeControl(usbCharger_);
             uut_2 = new ChargeControl(_usbCharger);
-            //displaySimulator = Substitute.For<DisplaySimulator>();
         }
 
         /***    charging test     ***/

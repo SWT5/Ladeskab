@@ -39,7 +39,6 @@ namespace Ladeskab.Test.Unit
         {
             _door.DoorOpenEvent += Raise.Event(); //raise event to simulate door opens 
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"}); //raise event RFIDdetected
-            //_rfidReader.RegisterId("1"); //raise event 
 
         }
 
@@ -49,7 +48,6 @@ namespace Ladeskab.Test.Unit
         {
             
             _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens();
             _display.Received(1).ConnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
         }
 
@@ -58,7 +56,6 @@ namespace Ladeskab.Test.Unit
         {
             _chargeControl.IsConnected().Returns(true);
             _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens();
             _display.Received(1).DisconnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
         }
 
@@ -85,10 +82,8 @@ namespace Ladeskab.Test.Unit
         public void doorClosed_EventHandler_Called_DoorOpenedCase_ifStatement()
         {
             _chargeControl.IsConnected().Returns(true);
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //open door inorder to close it again
-            _door.DoorCloseEvent += Raise.Event();
-            //_door.SimulateDoorCloses(); 
+            _door.DoorOpenEvent += Raise.Event();//open door inorder to close it again
+            _door.DoorCloseEvent += Raise.Event(); //_door.SimulateDoorCloses(); 
             _display.Received(1).LoadRfid(); //check if LoadRfid is called and by that the eventHandler is called as well 
         }
 
@@ -97,8 +92,7 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void doorClosed_EventHandler_Called_DoorOpenedCase_elseStatement()
         {
-            _door.DoorOpenEvent += Raise.Event();
-            //_door.SimulateDoorOpens(); //open door inorder to close it again
+            _door.DoorOpenEvent += Raise.Event();//open door inorder to close it again
             _door.DoorCloseEvent += Raise.Event(); //_door.SimulateDoorCloses(); 
             _display.Received(1).NoPhoneConnected();
         }
@@ -155,39 +149,5 @@ namespace Ladeskab.Test.Unit
             _display.Received(1).WrongRfid();
         }
 
-
-        /***   Test display    ***/
-
-        [Test]
-        public void ConnectionError()
-        {
-            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
-            _display.Received(1).ConnectionError();
-        }
-
-        [Test]
-        public void displayIsConnected()
-        {
-            _door.DoorOpenEvent += Raise.Event();
-            _chargeControl.IsConnected().Returns(false);
-            _display.Received(1).ConnectPhone();
-        }
-
-        [Test]
-        public void displayPhoneStartCharging()
-        {
-            _chargeControl.IsConnected().Returns(true);
-            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
-            _display.Received(1).PhoneStartCharging();
-        }
-
-        [Test]
-        public void displayStopCharging()
-        {
-            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
-            _chargeControl.IsConnected().Returns(true);
-            _door.DoorOpenEvent += Raise.Event();
-            _display.Received(1).DisconnectPhone();
-        }
     }
 }
