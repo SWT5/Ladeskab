@@ -42,7 +42,7 @@ namespace Ladeskab.Simulator
 
         public void NoPhoneConnected()
         {
-            Console.WriteLine("Ingen telefon forbundet - kan ikke låse");
+            Console.WriteLine("Ingen telefon forbundet");
         }
     }
 }

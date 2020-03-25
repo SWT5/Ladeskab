@@ -22,20 +22,20 @@ namespace Ladeskab.Test.Unit
         private ChargeControl uut_2;
         
         private IUsbCharger usbCharger_;        //Substitute: Fake
-        private IDisplay display_;
+        //private IDisplay display_;
         private IUsbCharger _usbCharger = new UsbChargerSimulator();
 
-        private DisplaySimulator displaySimulator;
+        //private DisplaySimulator displaySimulator;
 
 
         [SetUp]
         public void Setup()
         {
             usbCharger_ = Substitute.For<IUsbCharger>();
-            display_ = Substitute.For<IDisplay>();
+            //display_ = Substitute.For<IDisplay>();
             uut_ = new ChargeControl(usbCharger_);
             uut_2 = new ChargeControl(_usbCharger);
-            displaySimulator = Substitute.For<DisplaySimulator>();
+            //displaySimulator = Substitute.For<DisplaySimulator>();
         }
 
         /***    charging test     ***/
@@ -84,12 +84,6 @@ namespace Ladeskab.Test.Unit
             usbCharger_.Connected.Equals(false);
         }
 
-        [Test]
-        public void ConnectionError()
-        {
-            uut_.StopCharge();
-            displaySimulator.Received(1).ConnectionError();
-        }
 
         /***    CurrentState test     ***/
         [Test]
@@ -129,40 +123,7 @@ namespace Ladeskab.Test.Unit
         }
 
         /***    Display with charge control   ***/
-        [Test]
-        public void displayIsConnected()
-        {
-            uut_.IsConnected();
-            displaySimulator.Received(1).ConnectPhone();
-        }
-
-        [Test]
-        public void displayPhoneStartCharging()
-        {
-            uut_.StartCharge();
-            displaySimulator.Received(1).PhoneStartCharging();
-        }
-
-        [Test]
-        public void displayStopCharging()
-        {
-            uut_.StopCharge();
-            displaySimulator.Received(1).DisconnectPhone();
-        }
-
-        [Test]
-        public void WrongRfIDtag()
-        {
-            uut_.IsConnected();
-            displaySimulator.Received(1).WrongRfid();
-        }
-
-        [Test]
-        public void LoadingofRDidtag()
-        {
-            uut_.IsConnected();
-            displaySimulator.Received(1).LoadRfid();
-        }
+       
         
     }
 }
