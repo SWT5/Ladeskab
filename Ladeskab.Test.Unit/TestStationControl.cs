@@ -34,19 +34,10 @@ namespace Ladeskab.Test.Unit
             _uut = new StationControl(_rfidReader, _display, _door, _chargeControl, _logFile);
         }
 
-        [Test]
-        public void RFID_reader_DoorOpenState_case()
-        {
-            _door.DoorOpenEvent += Raise.Event(); //raise event to simulate door opens 
-            _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler <RfidDetectedEventArgs>>(this,new RfidDetectedEventArgs() {Id = "1"}); //raise event RFIDdetected
-
-        }
-
 
         [Test]
         public void doorOpened_EventHandler_AvailableCase()
         {
-            
             _door.DoorOpenEvent += Raise.Event();
             _display.Received(1).ConnectPhone(); //check if ConnectPhone is called and by that the eventHandler is called as well 
         }
@@ -74,6 +65,7 @@ namespace Ladeskab.Test.Unit
             _chargeControl.IsConnected().Returns(true);
             _rfidReader.RfidDetectedEvent += Raise.Event<EventHandler<RfidDetectedEventArgs>>(this, new RfidDetectedEventArgs() { Id = "1" });
             _door.DoorOpenEvent += Raise.Event(); //open door event 
+            _logFile.Received(1).LogError("Can't open when locked");
         }
 
 
