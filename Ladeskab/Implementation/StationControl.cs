@@ -63,7 +63,7 @@ namespace Ladeskab
                     {
                         _door.LockDoor();
                         _chargeControl.StartCharge();
-                        _oldId = e.Id; //used to be id instead of e
+                        _oldId = e.Id; 
                         _logFile.LogDoorLocked(_oldId);
 
                         _display.PhoneStartCharging();
@@ -77,12 +77,12 @@ namespace Ladeskab
                     break;
 
                 case LadeskabState.DoorOpen:
-                    // Ignore
+                    _display.WriteLine("The door is open");
                     break;
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    if (e.Id == _oldId) //used to be id instead of e
+                    if (e.Id == _oldId) 
                     {
                         _chargeControl.StopCharge();
                         _door.UnlockDoor();

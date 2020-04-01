@@ -44,5 +44,13 @@ namespace Ladeskab.Simulator
         {
             Console.WriteLine("Ingen telefon forbundet");
         }
+
+        public void WriteLine(string s)
+        {
+            Console.WriteLine(s);
+        }
+
+
+
     }
 }
