@@ -83,5 +83,14 @@ namespace Ladeskab.Test.Unit
             _uut.NoPhoneConnected();
             Assert.That(output.ToString(), Is.EqualTo("Ingen telefon forbundet\r\n"));
         }
+
+        [Test]
+        public void Writeline_Returns_rightString()
+        {
+            var output = new StringWriter();
+            Console.SetOut(output);
+            _uut.WriteLine("Test123456789");
+            Assert.That(output.ToString(), Is.EqualTo("Test123456789\r\n"));
+        }
     }
 }
