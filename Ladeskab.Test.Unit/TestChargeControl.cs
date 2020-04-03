@@ -16,8 +16,6 @@ namespace Ladeskab.Test.Unit
 {
     class TestChargeControl
     {
-        public int eventCount { get; set; }
-
         private ChargeControl uut_;
         private IUsbCharger _usbCharger;
         private IDisplay _display;
@@ -65,29 +63,22 @@ namespace Ladeskab.Test.Unit
 
 
         /***    CurrentState test     ***/
-        [Test]
-        public void CurrentValue_Fivehundred()
-        {
-            uut_.StartCharge();
-            _usbCharger.CurrentValue.CompareTo(500);
-
-        }
-
-        [Test]
-        public void CurrentValue_two_and_a_half()
-        {
-            uut_.StopCharge();
-            _usbCharger.CurrentValue.CompareTo(0.0);
-        }
-
-        /***    Event called Test   ***/
-
         //[Test]
-        //public void eventCalledValue()
+        //public void CurrentValue_Fivehundred()
         //{
         //    uut_.StartCharge();
-        //    Assert.That(uut_.CurrentCharge, Is.EqualTo(500.0));
+        //    _usbCharger.CurrentValue.CompareTo(500);
+
         //}
+
+        //[Test]
+        //public void CurrentValue_two_and_a_half()
+        //{
+        //    uut_.StopCharge();
+        //    _usbCharger.CurrentValue.CompareTo(0.0);
+        //}
+
+        /***    Event called Test   ***/
 
         [TestCase(0)]
         [TestCase(4.8)]
@@ -136,20 +127,5 @@ namespace Ladeskab.Test.Unit
             _display.Received(1).WriteLine("FEJL!!!! Der er noget galt med ladestrømmen - frakobl telefonen...  aktuel ladestroem: " + newCurrent);
         }
 
-
-
-        // behver denne ?? 
-        [Test]
-        public void eventCalledTime()
-        {
-            _usbCharger.ReceivedWithAnyArgs(eventCount);
-        }
-
-        // beøver denne?? 
-        [Test]
-        public void EventNotReceived()
-        {
-            _usbCharger.DidNotReceiveWithAnyArgs();
-        }
     }
 }
