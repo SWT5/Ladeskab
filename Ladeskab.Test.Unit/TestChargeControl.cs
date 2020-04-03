@@ -19,63 +19,48 @@ namespace Ladeskab.Test.Unit
         public int eventCount { get; set; }
 
         private ChargeControl uut_;
-        private ChargeControl uut_2;
-        private IUsbCharger usbCharger_;      
-        private IUsbCharger _usbCharger = new UsbChargerSimulator();
+        private IUsbCharger _usbCharger;
+        private IDisplay _display;
         
 
         [SetUp]
         public void Setup()
         {
-            usbCharger_ = Substitute.For<IUsbCharger>();
-            uut_ = new ChargeControl(usbCharger_);
-            uut_2 = new ChargeControl(_usbCharger);
+            _display = Substitute.For<IDisplay>();
+            _usbCharger = Substitute.For<IUsbCharger>();
+            uut_ = new ChargeControl(_usbCharger, _display);
         }
 
         /***    charging test     ***/
         [Test]
-        public void startCharging()
+        public void startChargingIsCalled_inUsbCharger()
         {
             //Act
             uut_.StartCharge();
             //Assert
-            usbCharger_.Received(1).StartCharge();      // received 1 call for startCharge
+            _usbCharger.Received(1).StartCharge();      // received 1 call for startCharge
         }
         
         [Test]
-        public void stopCharging()
+        public void stopChargingIsCalled_inUsbCharger()
         {
             uut_.StopCharge();
-            usbCharger_.Received(1).StopCharge();       // received 1 call for stopCharge
+            _usbCharger.Received(1).StopCharge();       // received 1 call for stopCharge
         }
 
         /***    connection test     ***/
         [Test]
         public void isConnectedTrue()
         {
-            uut_.StartCharge();
-            usbCharger_.Connected.Equals(true);
+            _usbCharger.Connected.Returns(true);
+            Assert.That(uut_.IsConnected(), Is.EqualTo(true));
         }
         
         [Test]
         public void isConnectedFalse()
         {
-            uut_.StopCharge();
-            usbCharger_.Connected.Equals(false);
-        }
-
-        [Test]
-        public void IsConnectedBool()
-        {
-            uut_.IsConnected();
-            usbCharger_.Connected.Equals(true);
-        }
-
-        [Test]
-        public void IsNotConnectedBool()
-        {
-            uut_.StopCharge();
-            usbCharger_.Connected.Equals(false);
+            _usbCharger.Connected.Returns(false);
+            Assert.That(uut_.IsConnected(), Is.EqualTo(false));
         }
 
 
@@ -84,14 +69,15 @@ namespace Ladeskab.Test.Unit
         public void CurrentValue_Fivehundred()
         {
             uut_.StartCharge();
-            usbCharger_.CurrentValue.CompareTo(500);
+            _usbCharger.CurrentValue.CompareTo(500);
+            Assert
         }
 
         [Test]
         public void CurrentValue_two_and_a_half()
         {
             uut_.StopCharge();
-            usbCharger_.CurrentValue.CompareTo(0.0);
+            _usbCharger.CurrentValue.CompareTo(0.0);
         }
 
         /***    Event called Test   ***/
@@ -99,25 +85,21 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void eventCalledValue()
         {
-            uut_2.StartCharge();
-            Assert.That(uut_2.CurrentCharge, Is.EqualTo(500.0));
+            uut_.StartCharge();
+            Assert.That(uut_.CurrentCharge, Is.EqualTo(500.0));
         }
 
         [Test]
         public void eventCalledTime()
         {
-            usbCharger_.ReceivedWithAnyArgs(eventCount);
+            _usbCharger.ReceivedWithAnyArgs(eventCount);
         }
 
 
         [Test]
         public void EventNotReceived()
         {
-            usbCharger_.DidNotReceiveWithAnyArgs();
+            _usbCharger.DidNotReceiveWithAnyArgs();
         }
-
-        /***    Display with charge control   ***/
-       
-        
     }
 }
