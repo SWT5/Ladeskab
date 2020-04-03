@@ -61,23 +61,6 @@ namespace Ladeskab.Test.Unit
             Assert.That(uut_.IsConnected(), Is.EqualTo(false));
         }
 
-
-        /***    CurrentState test     ***/
-        //[Test]
-        //public void CurrentValue_Fivehundred()
-        //{
-        //    uut_.StartCharge();
-        //    _usbCharger.CurrentValue.CompareTo(500);
-
-        //}
-
-        //[Test]
-        //public void CurrentValue_two_and_a_half()
-        //{
-        //    uut_.StopCharge();
-        //    _usbCharger.CurrentValue.CompareTo(0.0);
-        //}
-
         /***    Event called Test   ***/
 
         [TestCase(0)]
