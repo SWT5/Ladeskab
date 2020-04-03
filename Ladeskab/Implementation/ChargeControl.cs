@@ -44,6 +44,7 @@ namespace Ladeskab.Implementation
             else if (CurrentCharge > 500)
             {
                 _display.WriteLine("FEJL!!!! Der er noget galt med ladestrømmen - frakobl telefonen...  aktuel ladestroem: " + CurrentCharge);
+                _usbCharger.StopCharge();
             }
 
         }
