@@ -21,7 +21,7 @@ namespace LadeskabApp
             IRFIDReader reader = new RFIDReader();
             IUsbCharger usbCharger =new UsbChargerSimulator();
             IDisplay display = new DisplaySimulator();
-            IChargeControl chargeControl =new ChargeControl(usbCharger);
+            IChargeControl chargeControl =new ChargeControl(usbCharger, display);
             ILogFile logFile = new LogFile(); 
             StationControl stationControl = new StationControl(reader, display, door, chargeControl, logFile);
             string id = "";
