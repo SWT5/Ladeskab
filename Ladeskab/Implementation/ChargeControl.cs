@@ -33,7 +33,7 @@ namespace Ladeskab.Implementation
             {
                 _display.WriteLine("Ingen Telefonen tilsuttet - oplader ikke...  aktuel ladestroem: " + CurrentCharge);
             }
-            else if (CurrentCharge < 0 && CurrentCharge >= 5)
+            else if (CurrentCharge > 0 && CurrentCharge <= 5)
             {
                 _display.WriteLine("Telefonen er fuldt opladt...  aktuel ladestroem: " + CurrentCharge);
             }

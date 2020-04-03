@@ -70,7 +70,7 @@ namespace Ladeskab.Test.Unit
         {
             uut_.StartCharge();
             _usbCharger.CurrentValue.CompareTo(500);
-            Assert
+
         }
 
         [Test]
@@ -82,20 +82,70 @@ namespace Ladeskab.Test.Unit
 
         /***    Event called Test   ***/
 
-        [Test]
-        public void eventCalledValue()
+        //[Test]
+        //public void eventCalledValue()
+        //{
+        //    uut_.StartCharge();
+        //    Assert.That(uut_.CurrentCharge, Is.EqualTo(500.0));
+        //}
+
+        [TestCase(0)]
+        [TestCase(4.8)]
+        [TestCase(5)]
+        [TestCase(5.2)]
+        [TestCase(499)]
+        [TestCase(500)]
+        [TestCase(501)]
+        public void ChargeControl_Receivces_currentValue_from_CurrentValueEvent(double newCurrent)
         {
-            uut_.StartCharge();
-            Assert.That(uut_.CurrentCharge, Is.EqualTo(500.0));
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = newCurrent});
+            Assert.That(uut_.CurrentCharge, Is.EqualTo(newCurrent));
         }
 
+        // test eventhandler HandleCurrentChangedEvent interaktion med IDisplay og IUSBCharger
+        [TestCase(0)]
+        public void HandleCurrentChangedEvent_currentValue_Equal_zero(double newCurrent)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = newCurrent});
+            _display.Received(1).WriteLine("Ingen Telefonen tilsuttet - oplader ikke...  aktuel ladestroem: " + newCurrent);
+        }
+
+        [TestCase(0.3)]
+        [TestCase(4.6)]
+        [TestCase(5)]
+        public void HandleCurrentChangedEvent_currentValue_between_0_and_5(double newCurrent)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = newCurrent});
+            _display.Received(1).WriteLine("Telefonen er fuldt opladt...  aktuel ladestroem: " + newCurrent);
+        }
+
+        [TestCase(5.2)]
+        [TestCase(500)]
+        [TestCase(499.5)]
+        public void HandleCurrentChangedEvent_currentValue_between_5_and_500(double newCurrent)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = newCurrent});
+            _display.Received(1).WriteLine("Telefonen oplader...  aktuel ladestroem: " + newCurrent);
+        }
+
+        [TestCase(500.5)]
+        [TestCase(550)]
+        public void HandleCurrentChangedEvent_currentValue_over_500(double newCurrent)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = newCurrent});
+            _display.Received(1).WriteLine("FEJL!!!! Der er noget galt med ladestrømmen - frakobl telefonen...  aktuel ladestroem: " + newCurrent);
+        }
+
+
+
+        // behver denne ?? 
         [Test]
         public void eventCalledTime()
         {
             _usbCharger.ReceivedWithAnyArgs(eventCount);
         }
 
-
+        // beøver denne?? 
         [Test]
         public void EventNotReceived()
         {
